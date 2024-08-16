@@ -63,7 +63,7 @@ const Footer = () => {
 									</p>
 									<p className="mb-0">
 										<i className="fas fa-envelope"></i>
-										ujjalzaman@gmail.com
+										ashutoshth456@gmail.com
 									</p>
 								</div>
 							</div>
