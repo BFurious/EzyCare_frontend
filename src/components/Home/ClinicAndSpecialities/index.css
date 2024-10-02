@@ -32,13 +32,13 @@
 	box-shadow: 2px 2px 13px rgba(0, 0, 0, 0.1);
 	border-radius: 100%;
 	width: 150px;
-	background: #fff;
+	background: radial-gradient(circle, black, grey, white);
 	transition: 0.4s ease-in;
 }
 
 .speicality-item :hover {
 	transform: scale(1.1);
-	background: rgb(221, 221, 223);
+	background: rgb(0, 0, 0);
 }
 
 .speicality-item :hover>img {

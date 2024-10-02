@@ -52,7 +52,8 @@ To begin using the DoctorOnCall System, follow these simple steps:
 # Setup Documentation
 
 ## Clone The Project
-git clone https://github.com/Ujjalzaman/Doctor-Appointment.git
+Frontend: git clone https://github.com/BFurious/EzyCare_frontend
+Backend: git clone https://github.com/BFurious/EzyCare_backend
 
 ### Install Frontend
 cd Doctor-Appointment
@@ -114,14 +115,11 @@ Note: Please note that these are general instructions for setting up an Express 
 - **TypeScript:** A superset of JavaScript that adds static typing, enhancing code quality and maintainability.
 - **Prisma**: A modern database toolkit for Node.js and TypeScript, used for database access and management.
 
- ## Project Screenshot
-![DoctorOnCall OverView](https://github.com/Ujjalzaman/Doctor-Appointment/assets/49386888/eeed56ce-3d9a-464d-91e5-588ea81ec5c0)
-
 ## Contributing:
 
 1. Fork the repository by clicking the "Fork" button on the top right corner of the project's GitHub page. This will create a copy of the project in your own GitHub account.
 
-2. Clone the forked repository to your local machine by running the command ``` git clone https://github.com/your-username/online-doctor-appointment.git ``` in your terminal.
+2. Clone the forked repository to your local machine by running the command ``` git clone https://github.com/BFurious/EzyCare_frontend ``` in your terminal.
 
 3. Install the project's dependencies by running npm install or yarn install in the project's root directory.
 Create a new branch for your changes by running the command ``` git checkout -b branch-name ```, where branch-name is a descriptive name for your branch.
@@ -143,4 +141,4 @@ Thank you for considering this project. If you have any questions, please do not
 
 
 ## Contact Me
-Portfolio: [https://ujjalzaman.netlify.app/](https://ujjalzaman.netlify.app/)
+Portfolio: https://ashutosh-portfolio-n42c.onrender.com/
