@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FaCheck, FaEnvelope, FaLock, FaTimes, FaUser } from 'react-icons/fa';
+import { FaCheck, FaEnvelope, FaLock, FaTimes, FaUser, FaRegEyeSlash, FaRegEye } from 'react-icons/fa';
 import SocialSignUp from './SocialSignUp';
 import Spinner from 'react-bootstrap/Spinner'
 import swal from 'sweetalert';
@@ -28,6 +28,7 @@ const SignUp = ({ setSignUp }) => {
     const [userType, setUserType] = useState('patient');
     const [doctorSignUp, { data: dData, isSuccess: dIsSuccess, isError: dIsError, error: dError, isLoading: dIsLoading }] = useDoctorSignUpMutation();
     const [patientSignUp, { data: pData, isSuccess: pIsSuccess, isError: pIsError, error: pError, isLoading: pIsLoading }] = usePatientSignUpMutation();
+    const [showPassword, setShowPassword] = useState(false);
     const [passwordValidation, setPasswordValidation] = useState({
         carLength: false,
         specailChar: false,
@@ -131,7 +132,11 @@ const SignUp = ({ setSignUp }) => {
             patientSignUp(user)
         }
     }
-
+    const handleShowPassword = () => {
+        setShowPassword((showPassword) => {
+            return !showPassword;
+        });
+    }
     return (
         <form className="sign-up-form" onSubmit={hanldeOnSubmit}>
             <h2 className="title">Sign Up</h2>
@@ -149,7 +154,10 @@ const SignUp = ({ setSignUp }) => {
             </div>
             <div className="input-field">
                 <span className="fIcon"><FaLock /></span>
-                <input type="password" name="password" placeholder="password" onChange={(e) => hanldeOnChange(e)} value={user.password} />
+                <input type={ !showPassword ? "password" : "text"} name="password" placeholder="password" onChange={(e) => hanldeOnChange(e)} value={user.password} />
+                {!showPassword && <span className="fIcon" onClick={(e) => handleShowPassword()}><FaRegEyeSlash /></span>}
+                {showPassword && <span className="fIcon" onClick={(e) => handleShowPassword()}><FaRegEye /></span>
+                }
             </div>
             <div className='input-field d-flex align-items-center gap-2 justify-content-center'>
                 <div className='text-nowrap'>I'M A</div>

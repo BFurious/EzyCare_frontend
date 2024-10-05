@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FaEnvelope, FaLock } from 'react-icons/fa';
+import { FaEnvelope, FaLock, FaRegEyeSlash, FaRegEye  } from 'react-icons/fa';
 import SocialSignUp from './SocialSignUp';
 import { useForm } from "react-hook-form";
 import Spinner from 'react-bootstrap/Spinner';
@@ -18,6 +18,7 @@ const SignIn = ({ handleResponse }) => {
     const [userLogin, { isError, isLoading, isSuccess, error }] = useUserLoginMutation();
     const [forgotEmail, setForgotEmail] = useState('');
     const [resetPassword, { isError: resetIsError, isSuccess: resetIsSuccess, error: resetError, isLoading: resetIsLoading }] = useResetPasswordMutation();
+    const [showPassword, setShowPassword] = useState(false);
 
     setTimeout(() => {
         setShow(false);
@@ -48,7 +49,11 @@ const SignIn = ({ handleResponse }) => {
     const handleShowForgotPassword = () => {
         setShowForgotPassword(!showForgotPassword);
     }
-
+    const handleShowPassword = () => {
+        setShowPassword((showPassword) => {
+            return !showPassword;
+        });
+    }
     return (
         <>
             {
@@ -92,7 +97,10 @@ const SignIn = ({ handleResponse }) => {
                         {errors.email && <span className="text-danger">This field is required</span>}
                         <div className="input-field">
                             <span className="fIcon"><FaLock /></span>
-                            <input {...register("password", { required: true })} type="password" placeholder="Enter Your Password" />
+                            <input {...register("password", { required: true })} type={!showPassword ? "password":"text"} placeholder="Enter Your Password" />
+                            {!showPassword && <span className="fIcon" onClick={(e) => handleShowPassword()}><FaRegEyeSlash /></span>}
+                            {showPassword && <span className="fIcon" onClick={(e) => handleShowPassword()}><FaRegEye /></span>
+                            }
                         </div>
                         {errors.password && <span className="text-danger">This field is required</span>}
                         {infoError && <p className="text-danger">{infoError}</p>}
