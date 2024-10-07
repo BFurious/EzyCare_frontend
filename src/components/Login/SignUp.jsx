@@ -152,11 +152,11 @@ const SignUp = ({ setSignUp }) => {
                 <span className="fIcon"><FaEnvelope /></span>
                 <input placeholder="Email" name="email" type="email" onChange={(e) => hanldeOnChange(e)} value={user.email} />
             </div>
-            <div className="input-field">
+            <div className="input-field" style={{"gridTemplateColumns": "15% 70% 15%"}}>
                 <span className="fIcon"><FaLock /></span>
                 <input type={ !showPassword ? "password" : "text"} name="password" placeholder="password" onChange={(e) => hanldeOnChange(e)} value={user.password} />
-                {!showPassword && <span className="fIcon" onClick={(e) => handleShowPassword()}><FaRegEyeSlash /></span>}
-                {showPassword && <span className="fIcon" onClick={(e) => handleShowPassword()}><FaRegEye /></span>
+                {showPassword && <span className="fIcon" onClick={(e) => handleShowPassword()}><FaRegEyeSlash /></span>}
+                {!showPassword && <span className="fIcon" onClick={(e) => handleShowPassword()}><FaRegEye /></span>
                 }
             </div>
             <div className='input-field d-flex align-items-center gap-2 justify-content-center'>

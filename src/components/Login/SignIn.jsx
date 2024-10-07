@@ -95,11 +95,11 @@ const SignIn = ({ handleResponse }) => {
                             <input {...register("email", { required: true })} placeholder="Enter Your Email" type="email" />
                         </div>
                         {errors.email && <span className="text-danger">This field is required</span>}
-                        <div className="input-field">
+                        <div className="input-field" style={{"gridTemplateColumns": "15% 70% 15%"}}>
                             <span className="fIcon"><FaLock /></span>
                             <input {...register("password", { required: true })} type={!showPassword ? "password":"text"} placeholder="Enter Your Password" />
-                            {!showPassword && <span className="fIcon" onClick={(e) => handleShowPassword()}><FaRegEyeSlash /></span>}
-                            {showPassword && <span className="fIcon" onClick={(e) => handleShowPassword()}><FaRegEye /></span>
+                            {showPassword && <span className="fIcon" onClick={(e) => handleShowPassword()}><FaRegEyeSlash /></span>}
+                            {!showPassword && <span className="fIcon" onClick={(e) => handleShowPassword()}><FaRegEye /></span>
                             }
                         </div>
                         {errors.password && <span className="text-danger">This field is required</span>}

@@ -9,7 +9,7 @@ export const getUserInfo = () => {
     const authToken = getFromLocalStorage(authKey);
     if (authToken) {
         const decodedToken = decodeToken(authToken);
-        return decodedToken
+        return decodedToken;
     } else {
         return null
     }

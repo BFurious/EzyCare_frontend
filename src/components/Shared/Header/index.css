@@ -83,11 +83,12 @@
     align-items: center;
     justify-content: space-between;
     font-size: 14px;
-    color: #2c4964;
+    color: #7eb0df;
     white-space: nowrap;
     transition: 0.3s;
-    border-bottom: 2px solid #fff;
+    border-bottom: 2px solid #ffffff;
     padding: 5px 2px;
+    font-weight: 700;
 }
 
 .navbar a i,
@@ -101,8 +102,11 @@
 .navbar .active,
 .navbar .active:focus,
 .navbar li:hover>a {
-    color: #1977cc;
     border-color: #1977cc;
+    background: linear-gradient(to right, teal, blue, purple); /* Gradient colors */
+    -webkit-background-clip: text; /* For Safari and Chrome */
+    background-clip: text; /* For modern browsers */
+    color: transparent;
 }
 
 .navbar .dropdown ul {
@@ -194,7 +198,6 @@
 
 .appointment-btn {
     margin-left: 25px;
-    background: #1977cc;
     color: #fff;
     border-radius: 50px;
     padding: 8px 25px;
@@ -205,7 +208,6 @@
 }
 
 .appointment-btn:hover {
-    background: #166ab5;
     color: #fff;
 }
 

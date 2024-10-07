@@ -38,7 +38,7 @@ const Contact = () => {
                                     <FaLocationArrow className='icon' />
                                     <div>
                                         <h4>Location:</h4>
-                                        <p>1212 Dhaka, Kazi Nozrul Avenur, Sylhet, Bangladesh 03214</p>
+                                        <p>Kunwar singh Nagar, Nangloi, New Delhi-110041</p>
                                     </div>
                                 </div>
 

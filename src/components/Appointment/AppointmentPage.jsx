@@ -30,7 +30,7 @@ let initialValue = {
 }
 const AppointmentPage = () => {
   const dispatch = useDispatch();
-  const {data, role} = useAuthCheck();
+  const { data, role } = useAuthCheck();
   const [current, setCurrent] = useState(0);
   const [selectedDate, setSelectedDate] = useState('');
   const [selectTime, setSelectTime] = useState('');
@@ -38,10 +38,9 @@ const AppointmentPage = () => {
   const [selectValue, setSelectValue] = useState(initialValue);
   const [IsDisable, setIsDisable] = useState(true);
   const [isConfirmDisable, setIsConfirmDisable] = useState(true);
-  const [patientId, setPatientId] = useState('');
   const navigation = useNavigate();
 
-  const [createAppointmentByUnauthenticateUser, {data: appointmentData, isError, isSuccess, isLoading, error}] = useCreateAppointmentByUnauthenticateUserMutation()
+  const [createAppointmentByUnauthenticateUser, { data: appointmentData, isError, isSuccess, isLoading, error }] = useCreateAppointmentByUnauthenticateUserMutation()
 
   const handleChange = (e) => { setSelectValue({ ...selectValue, [e.target.name]: e.target.value }) };
 
@@ -55,7 +54,20 @@ const AppointmentPage = () => {
     setIsDisable(isInputEmpty);
     setIsConfirmDisable(isConfirmInputEmpty);
   }, [selectValue, isCheck]);
-  
+
+  const setCurrentPatientData = (clearIt) => {
+    setSelectValue((currentSelectValue) => {
+      return {
+        ...currentSelectValue, 
+        firstName: clearIt ? "" : data.firstName,
+        lastName: clearIt ? "" : data.lastName,
+        email: clearIt ? "" : data.email ,
+        address: clearIt ? "" : data.address,
+        phone: clearIt ? "" : data.mobile,
+      }
+    })
+  }
+
   const handleConfirmSchedule = () => {
     const obj = {};
     obj.patientInfo = {
@@ -81,15 +93,15 @@ const AppointmentPage = () => {
 
   useEffect(() => {
     if (isSuccess) {
-        message.success("Succcessfully Appointment Scheduled")
-        setSelectValue(initialValue);
-        dispatch(addInvoice({ ...appointmentData }))
-        navigation(`/booking/success/${appointmentData?.id}`)
+      message.success("Succcessfully Appointment Scheduled")
+      setSelectValue(initialValue);
+      dispatch(addInvoice({ ...appointmentData }))
+      navigation(`/booking/success/${appointmentData?.id}`)
     }
     if (isError) {
-        message.error(error?.data?.message);
+      message.error(error?.data?.message);
     }
-}, [isSuccess, isError, isLoading, appointmentData])
+  }, [isSuccess, isError, isLoading, appointmentData])
 
   const handleDateChange = (date) => { setSelectedDate(moment(date).format('YYYY-MM-DD HH:mm:ss')) }
 
@@ -105,7 +117,7 @@ const AppointmentPage = () => {
     },
     {
       title: 'Patient Information',
-      content: <PersonalInformation handleChange={handleChange} selectValue={selectValue} setPatientId={setPatientId}/>
+      content: <PersonalInformation handleChange={handleChange} selectValue={selectValue} setCurrentPatientData= {setCurrentPatientData} patientId={data?.id} />
     },
     {
       title: 'Payment',
@@ -138,7 +150,6 @@ const AppointmentPage = () => {
               <Button type="primary" size="large"
                 disabled={current === 0 ? (selectTime ? false : true) : IsDisable || !selectTime}
                 onClick={() => next()}>Next</Button>)}
-
             {current === steps.length - 1 && (<Button type="primary" size="large" disabled={isConfirmDisable} loading={isLoading} onClick={handleConfirmSchedule}>Confirm</Button>)}
             {current > 0 && (<Button style={{ margin: '0 8px', }} size="large" onClick={() => prev()} >Previous</Button>)}
           </div>

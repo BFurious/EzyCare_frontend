@@ -53,6 +53,18 @@ const DoctorBooking = () => {
     const [IsConfirmDisable, setIsConfirmDisable] = useState(true);
 
     const handleChange = (e) => { setSelectValue({ ...selectValue, [e.target.name]: e.target.value }) }
+    const setCurrentPatientData = (clearIt) => {
+        setSelectValue((currentSelectValue) => {
+          return {
+            ...currentSelectValue, 
+            firstName: clearIt ? "" : data.firstName,
+            lastName: clearIt ? "" : data.lastName,
+            email: clearIt ? "" : data.email ,
+            address: clearIt ? "" : data.address,
+            phone: clearIt ? "" : data.mobile,
+          }
+        })
+      }
 
     useEffect(() => {
         const { firstName, lastName, email, phone, nameOnCard, cardNumber, expiredMonth, cardExpiredYear, cvv, reasonForVisit } = selectValue;
@@ -120,7 +132,7 @@ const DoctorBooking = () => {
         },
         {
             title: 'Patient Information',
-            content: <PersonalInformation handleChange={handleChange} selectValue={selectValue} setPatientId={setPatientId}/>
+            content: <PersonalInformation handleChange={handleChange} selectValue={selectValue} setCurrentPatientData= {setCurrentPatientData} patientId={data?.id} />
         },
         {
             title: 'Payment',
