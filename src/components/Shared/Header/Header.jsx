@@ -20,7 +20,7 @@ const Header = () => {
     const [isLoggedIn, setIsLogged] = useState(false);
     const [show, setShow] = useState(true);
     const [open, setOpen] = useState(false);
-    const [chatAssitantActive, setChatAssitantActive] = useState(true);
+    const [chatAssitantActive, setChatAssitantActive] = useState(false);
 
     // const lastScrollRef = useRef(0);
     const handleScroll = () => {
