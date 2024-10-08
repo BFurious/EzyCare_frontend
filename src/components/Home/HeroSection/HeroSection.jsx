@@ -28,12 +28,12 @@ const HeroSection = () => {
                 <div className="hero-content">
                     <div>
                         <small>TOTAL HEALTH CARE SOLUTION</small>
-                        <h1>Your Most Trusted <br />Health Partner</h1>
+                        <h1 className="animate-teal-purple-text">Your Most Trusted <br />Health Partner</h1>
                         <small>A repudiandae ipsam labore ipsa voluptatum quidem quae laudantium quisquam aperiam maiores sunt fugit, deserunt rem suscipit placeat.</small>
                     </div>
                     <div className="d-flex justify-content-center gap-2">
-                        <Link to={'/doctors'} className="btn-get-started scrollto">Get Started</Link>
-                        <Link to={'/track-appointment'} className="btn-get-started scrollto">Track Appointment</Link>
+                        <Link to={'/doctors'} className="btn-get-started bg-linear-gradient-45-blue-teal scrollto">Get Started</Link>
+                        <Link to={'/track-appointment'} className="btn-get-started bg-linear-gradient-45-teal-blue scrollto">Track Appointment</Link>
                     </div>
                 </div>
             </div>
