@@ -114,7 +114,10 @@ a:focus {
     outline: none;
     text-decoration: none;
 }
-
+p{
+    word-break: break-word;
+    margin-bottom: 0;
+}
 .ant-radio-group {
     display: flex !important;
     flex-direction: column !important;

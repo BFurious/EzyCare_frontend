@@ -16,9 +16,12 @@
     overflow-y: scroll;
     border: 1px solid #ddd;
     padding: 10px;
-    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column ;
+    gap: 5px;
+    margin-bottom: 10px;  
   }
-  
+
   .message {
     margin: 5px 0;
     padding: 8px;
