@@ -8,13 +8,19 @@ import avatar from '../../../images/avatar.jpg';
 import { Button, message } from 'antd';
 import { loggedOut } from '../../../service/auth.service';
 import HeaderNav from './HeaderNav';
+import ChatAssistant from '../Assistant/chatAssistant';
+import io from 'socket.io-client';
+
 
 const Header = () => {
+    let socket;
+    const ENDPOINT = "http://localhost:5050/";
     const navigate = useNavigate();
     const { authChecked, data } = useAuthCheck();
     const [isLoggedIn, setIsLogged] = useState(false);
     const [show, setShow] = useState(true);
     const [open, setOpen] = useState(false);
+    const [chatAssitantActive, setChatAssitantActive] = useState(true);
 
     // const lastScrollRef = useRef(0);
     const handleScroll = () => {
@@ -39,6 +45,11 @@ const Header = () => {
         message.success("Successfully Logged Out");
         setIsLogged(false);
         navigate('/');
+    }
+
+    const handleToggleChatAssistant = () => {
+        socket = io(ENDPOINT); // Replace with your server URL
+        setChatAssitantActive(!chatAssitantActive);
     }
 
 
@@ -72,8 +83,18 @@ const Header = () => {
                     <HeaderNav isLoggedIn={isLoggedIn} data={data}
                         avatar={avatar} content={content} open={open} setOpen={setOpen} />
                     <Link to={'/appointment'} className="bg-gradient-to-r from-teal-400 to-blue-500 hover:from-indigo-500 hover:via-purple-500 hover:to-pink-500 font-bold appointment-btn scrollto"><span className="d-none d-md-inline">Make an</span> Appointment</Link>
+                    <span
+                        to={'/appointment'}
+                        className="bg-gradient-to-r from-teal-400 to-blue-500 hover:from-indigo-500 hover:via-purple-500 hover:to-pink-500 font-bold appointment-btn scrollto"
+                        style={{display:`${chatAssitantActive ? "none": "block"}`}}
+                        onClick={()=>{setChatAssitantActive((currentState) => { return !currentState; })}}>
+                        ChatAssistant
+                    </span>
                 </div>
             </header>
+            {
+                chatAssitantActive && <ChatAssistant toogleChatAssitantActive= {setChatAssitantActive}/>
+            }
         </>
     )
 }

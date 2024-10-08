@@ -1,0 +1,42 @@
+
+.chat-container {
+    width: 300px;
+    margin: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    position: fixed;
+    bottom:0;
+    right:0;
+    z-index:1000; 
+    background: aliceblue;
+  }
+  
+  .chat-box {
+    height: 300px;
+    overflow-y: scroll;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .message {
+    margin: 5px 0;
+    padding: 8px;
+    background-color: #f1f1f1;
+    border-radius: 4px;
+  }
+  
+  .input-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  input {
+    flex: 1;
+    padding: 8px;
+  }
+  
+  button {
+    padding: 8px;
+  }
+  
