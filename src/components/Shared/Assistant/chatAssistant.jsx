@@ -2,8 +2,12 @@ import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import styles from "./chatAssiatance.module.css";
 
-const SERVER_ENDPOINT = process.env.REACT_APP_BASE_URL;
-const socket = io(SERVER_ENDPOINT); // Replace with your server URL
+// const SERVER_ENDPOINT = process.env.REACT_APP_BASE_URL;
+const SERVER_ENDPOINT = "http://localhost:5050";
+
+const socket = io(SERVER_ENDPOINT,{
+   transports: ['polling', 'websocket']
+  }); // Replace with your server URL
 
 const ChatAssistant = ({ data, content, avatar, toogleChatAssitantActive }) => {
   const [roomId, setRoomId] = useState('');
