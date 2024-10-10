@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
 import './index.css';
 import { Link } from 'react-router-dom';
-import { showSlides, changeSlide } from "../../../utils/slideshow"
+import { showSlides, changeSlide } from "../../../utils/slideshow";
+let timer;
 
 const HeroSection = () => {
     useEffect(() => {
-        setTimeout(() => { showSlides(); }, 500);
+        setTimeout(timer);
+        timer = setTimeout(() => { showSlides(); }, 5000);
     }, [])
     return (
         <section id="hero" className="d-flex align-items-center">

@@ -29,7 +29,7 @@ const InfoPage = () => {
 
                 <div className="flex-[2]">
                     <div className="icon-boxes flex w-full gap-3">
-                        <div className="col-xl-4 d-flex align-items-stretch">
+                        <div className="flex align-items-stretch flex-[1]">
                             <div className="flip-card w-full h-full">
                                 <div className="flip-card-inner transition-transform duration-700 ease-in-out transform-style-3d text-white">
                                     {/* Front Side (Heading) */}
@@ -45,7 +45,7 @@ const InfoPage = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-xl-4 d-flex align-items-stretch">
+                        <div className="flex align-items-stretch flex-[1]">
                             <div className="flip-card w-full h-full">
                                 <div className="flip-card-inner transition-transform duration-700 ease-in-out transform-style-3d text-white">
                                     {/* Front Side (Heading) */}
@@ -61,7 +61,7 @@ const InfoPage = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-xl-4 d-flex align-items-stretch">
+                        <div className="flex align-items-stretch flex-[1]">
                             <div className="flip-card w-full h-full">
                                 <div className="flip-card-inner transition-transform duration-700 ease-in-out transform-style-3d text-white">
                                     {/* Front Side (Heading) */}

@@ -37,10 +37,8 @@ function fetchTotalSlideHSowing(containerId) {
 
 function showNavigationDot(containerId) {
     switch (containerId) {
-        case 'gallery-container-1':
-            return false;
         default:
-            return true;
+            return false;
     }
 }
 
@@ -202,6 +200,5 @@ export function triggerParticularSlide(newSlide, containerId) {
     
     restartSlideShow(containerId);
 }
-// Initialize the slideshow
 
 

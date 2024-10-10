@@ -49,7 +49,7 @@ const Header = () => {
                 <h5 className='text-capitalize'>{data?.firstName + ' ' + data?.lastName}</h5>
                 <p className='my-0'>{data?.email}</p>
                 <Link to="/dashboard">
-                    <button className='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-pink-500 hover:to-orange-500 w-100 text-white font-bold rounded py-1' onClick={hanldeSignOut}>
+                    <button className='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-pink-500 hover:to-orange-500 w-100 text-white font-bold rounded py-1'>
                         Dashboard
                     </button>
                 </Link>
@@ -74,7 +74,6 @@ const Header = () => {
                         avatar={avatar} content={content} open={open} setOpen={setOpen} />
                     <Link to={'/appointment'} className="bg-gradient-to-r from-teal-400 to-blue-500 hover:from-indigo-500 hover:via-purple-500 hover:to-pink-500 font-bold appointment-btn scrollto"><span className="d-none d-md-inline">Make an</span> Appointment</Link>
                     <span
-                        to={'/appointment'}
                         className="bg-gradient-to-r from-teal-400 to-blue-500 hover:from-indigo-500 hover:via-purple-500 hover:to-pink-500 font-bold appointment-btn scrollto"
                         style={{display:`${chatAssitantActive ? "none": "block"}`}}
                         onClick={(e)=>setChatAssitantActive(!chatAssitantActive)}>

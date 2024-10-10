@@ -116,7 +116,7 @@ a:focus {
 }
 p{
     word-break: break-word;
-    margin-bottom: 0;
+    margin-bottom: 0 !important;
 }
 .ant-radio-group {
     display: flex !important;
@@ -131,6 +131,10 @@ p{
     font-weight: 500;
     margin: 6px auto auto 8px;
     padding: 0 7px;
+}
+
+button{
+ height:100%;
 }
 
 .card-label>input {

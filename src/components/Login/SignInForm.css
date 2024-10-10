@@ -116,6 +116,7 @@
       color: #acacac;
       transition: 0.5s;
       font-size: 1.1rem;
+      margin:auto;
   }
   
   .input-field input {

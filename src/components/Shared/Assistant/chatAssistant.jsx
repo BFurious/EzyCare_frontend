@@ -1,39 +1,63 @@
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import styles from "./chatAssiatance.module.css";
+const SOCKET_SERVER_ENDPOINT = process.env.SOCKET_SERVER_ENDPOINT;
+// const SOCKET_SERVER_ENDPOINT = 'http://localhost:5050';
 
-const SERVER_ENDPOINT = "https://ezy-care-backend.vercel.app/";
-
-// const SERVER_ENDPOINT = "http://localhost:5050";
-
-const socket = io(SERVER_ENDPOINT,{
-   transports: ['polling', 'websocket']
-  }); // Replace with your server URL
+let socket;
 
 const ChatAssistant = ({ data, content, avatar, toogleChatAssitantActive }) => {
   const [roomId, setRoomId] = useState('');
   const [message, setMessage] = useState('');
   const [chat, setChat] = useState([]);
+  const [notification, setNotification] = useState('');
   const [userId, setUserId] = useState(''); // For storing the user identity
+  let timer;
+
+  const handleNotifaction = (message) => {
+
+    setNotification("");
+    clearTimeout(timer);
+    setNotification(message);
+    timer = setTimeout(() => {
+      setNotification("");
+    }, 3000);
+  }
 
   useEffect(() => {
+
+    socket = io(SOCKET_SERVER_ENDPOINT, {
+      transports: ['polling', 'websocket']
+    });
     // Listen for incoming messages
     socket.on('message', (message) => {
-      setChat((prevChat) => [...prevChat, message]);
+      if (message['notification']) {
+        handleNotifaction(message['notification']);
+      } else {
+        if (message !== chat[0]) {
+          setChat((prevChat) => {
+            return [...prevChat, message]
+         });
+        }
+      }
     });
 
     return () => {
       socket.off('message'); // Clean up the listener on component unmount
-      // socket.disconnect(); // Disconnect the socket
-      setMessage([]); // Clear chat messages
+      socket.disconnect(); // Disconnect the socket
     };
   }, []);
 
   const createRoom = () => {
-    socket.emit('createRoom', {}, ({ roomId }) => {
-      setRoomId(roomId);
-      setUserId(socket.id);
-      console.log(`Room created with ID: ${roomId}`);
+    socket.emit('createRoom', (response) => {
+      if (response.error) {
+        handleNotifaction(response.error);
+      } else {
+        setRoomId(response.roomId);
+        setUserId(socket.id);
+        setChat([]);
+        setNotification(`Room created with ID: ${response.roomId}`);
+      }
     });
   };
 
@@ -41,11 +65,12 @@ const ChatAssistant = ({ data, content, avatar, toogleChatAssitantActive }) => {
     const roomId = prompt('Enter your guest ID to join the room:');
     socket.emit('joinRoom', { roomId }, (response) => {
       if (response.error) {
-        alert(response.error);
+        handleNotifaction(response.error);
       } else {
         setUserId(socket.id);
         setRoomId(roomId);
-        console.log('Joined room successfully');
+        setChat([]);
+        handleNotifaction('Joined room successfully');
       }
     });
   };
@@ -57,67 +82,102 @@ const ChatAssistant = ({ data, content, avatar, toogleChatAssitantActive }) => {
 
   const disconnectSocket = () => {
     socket.disconnect();
-    setRoomId('');
+    alert("disconnected");
     toogleChatAssitantActive(false); // Close the chat assistant window
   }
+
+  const leaveRoom = () => {
+    socket.emit('leaveRoom', { roomId }, (response) => {
+      if (response.error) {
+        handleNotifaction(response.error);
+      } else {
+        handleNotifaction('Left room successfully');
+        setRoomId('');
+        setChat([]);
+      }
+    });
+  }
+
   const handleEnterKey = (event) => {
     event.preventDefault(); // Prevent default behavior of the Enter key
     sendMessage(); // Call sendMessage function
   };
 
   return (
-    <div className={styles['chat-container']}>
-      {roomId && <h2>Room ID: {roomId}</h2>}
-      <div className='flex flex-row w-full align-iten-center justify-content-center gap-2'>
-        <div>
-          <button className="mb-2 hover:bg-teal-600 p-2 bg-green-500 rounded-2xl flex-[1]" onClick={createRoom}>Create Room</button>
-        </div>
-        <div>
-          <button className="mb-2 hover:bg-teal-600 p-2 bg-yellow-500 rounded-2xl flex-[1]" onClick={joinRoom}>Join Room</button>
-        </div>
-        <div>
-          <button className="mb-2 hover:bg-teal-600 p-2 bg-red-500 rounded-2xl flex-[1]" onClick={disconnectSocket}>close</button>
-        </div>
-      </div>
-      <div className={styles['chat-box']}>
-        {chat.map((c, index) => (
-            c.sender === userId ? (
-              <li key={index} className='list-none'>
-                <div className='flex flex-row justify-center items-center gap-1 flex-[1]'>
-                  <div className='profileImage'>
-                    <img src={data?.img ? data?.img : avatar} alt="" className="profileImage shadow img-fluid" />
-                  </div>
-                  <div className="bg-linear-gradient-45-teal-blue-transparent p-3 rounded-5 flex-[2]">
-                    <p>{c.message}</p>
-                  </div>
-                </div>
-                </li>
-               ) :
-              (
-                <li key={index} className='list-none '>
-                  <div className='flex flex-row-reverse items-center justify-content-center gap-1 flex-[1]'>
-                    <div className='profileImage flex-[1]'>
+    <div>
+      <div className={styles['chat-container']}>
+        {roomId &&
+          <div className='flex flex-row align-center justify-center gap-2'>
+            <div className='p-2'>
+              <h2 className='text-center text-purple-500 text-[20px]'>Room ID: {roomId}</h2>
+            </div>
+            <div>
+              <button className="mb-2 hover:bg-teal-600 p-2 bg-red-500 rounded-2xl flex-[1]" onClick={leaveRoom}>Leave Room</button>
+            </div>
+          </div>
+        }
+        <div className={styles['chat-box-container']}>
+          <div className={styles['chat-box']}>
+            {chat.map((c, index) => (
+              c.sender === userId ? (
+                <li key={index} className='list-none w-full flex justify-end'>
+                  <div className='flex flex-row-reverse items-center gap-1 flex-[1]' style={{ maxWidth: '75%' }}>
+                    <div className='profileImage'>
                       <img src={data?.img ? data?.img : avatar} alt="" className="profileImage shadow img-fluid" />
                     </div>
-                    <div className="bg-linear-gradient-45-teal-blue-transparent p-3 rounded-5 flex-[2]">
+                    <div className="bg-linear-gradient-45-teal-blue-transparent p-3 rounded-5 flex-[2] flex justify-end max-w-fit">
                       <p>{c.message}</p>
                     </div>
                   </div>
                 </li>
-              )
-        ))}
+              ) :
+                (
+                  <li key={index} className='list-none  flex justify-start' >
+                    <div className='flex flex-row items-center gap-1 flex-[1]' style={{ maxWidth: '75%' }}>
+                      <div className='profileImage'>
+                        <img src={data?.img ? data?.img : avatar} alt="" className="profileImage shadow img-fluid" />
+                      </div>
+                      <div className="bg-linear-gradient-45-teal-blue-transparent p-3 rounded-5 flex-[2] max-w-fit">
+                        <p>{c.message}</p>
+                      </div>
+                    </div>
+                  </li>
+                )
+            ))}
+          </div>
+          {
+            <div className={styles['notification']} style={notification ? { opacity: '1' } : { opacity: '0' }}>
+              <p>{notification}</p>
+            </div>
+          }
+        </div>
+        {!roomId &&
+          <div className='flex flex-row w-full align-iten-center justify-content-center gap-2'>
+
+            <div>
+              <button className="mb-2 hover:bg-teal-600 p-2 bg-green-500 rounded-2xl flex-[1]" onClick={createRoom}>Create Room</button>
+            </div>
+            <div>
+              <button className="mb-2 hover:bg-teal-600 p-2 bg-yellow-500 rounded-2xl flex-[1]" onClick={joinRoom}>Join Room</button>
+            </div>
+            <div>
+              <button className="mb-2 hover:bg-teal-600 p-2 bg-red-500 rounded-2xl flex-[1]" onClick={disconnectSocket}>close</button>
+            </div>
+          </div>
+        }
+
+        <div className={styles['input-container']}>
+          <input
+            type="text"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            onKeyDown={(e) => { e = e.key === 'Enter' ? handleEnterKey(e) : null }}
+            placeholder="Type a message..."
+          />
+          <button onClick={sendMessage}>Send</button>
+        </div>
       </div>
-      <div className={styles['input-container']}>
-        <input
-          type="text"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          onKeyDown={(e) => { e = e.key === 'Enter' ? handleEnterKey(e) : null }}
-          placeholder="Type a message..."
-        />
-        <button onClick={sendMessage}>Send</button>
-      </div>
-    </div>
+    </div >
   );
 };
 
