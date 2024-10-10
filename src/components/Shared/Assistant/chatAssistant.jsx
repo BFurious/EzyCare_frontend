@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import styles from "./chatAssiatance.module.css";
 const SOCKET_SERVER_ENDPOINT = process.env.SOCKET_SERVER_ENDPOINT;
-// const SOCKET_SERVER_ENDPOINT = 'http://localhost:5050';
 
 let socket;
 
@@ -118,6 +117,7 @@ const ChatAssistant = ({ data, content, avatar, toogleChatAssitantActive }) => {
         }
         <div className={styles['chat-box-container']}>
           <div className={styles['chat-box']}>
+          <div className={styles['scroll-content']}>
             {chat.map((c, index) => (
               c.sender === userId ? (
                 <li key={index} className='list-none w-full flex justify-end'>
@@ -144,6 +144,7 @@ const ChatAssistant = ({ data, content, avatar, toogleChatAssitantActive }) => {
                   </li>
                 )
             ))}
+            </div>
           </div>
           {
             <div className={styles['notification']} style={notification ? { opacity: '1' } : { opacity: '0' }}>
