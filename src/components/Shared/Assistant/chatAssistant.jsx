@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import styles from "./chatAssiatance.module.css";
-const SOCKET_SERVER_ENDPOINT = "http://43.204.149.220:5050/";
+const SOCKET_SERVER_ENDPOINT = process.env.REACT_APP_SOCKET_SERVER_ENDPOINT;  
 
 let socket;
 
