@@ -98,10 +98,7 @@
     margin-left: 5px;
 }
 
-.navbar a:hover,
-.navbar .active,
-.navbar .active:focus,
-.navbar li:hover>a {
+.navbar .active {
     border-color: #1977cc;
     background: linear-gradient(to right, teal, blue, purple); /* Gradient colors */
     -webkit-background-clip: text; /* For Safari and Chrome */
@@ -109,6 +106,22 @@
     color: transparent;
 }
 
+.navbar li:hover>a::after{
+    width: 80%; /* Expand to full width */
+    left: 25%; /* Align to the left */
+}
+
+.navbar li>a::after{
+    content: '';
+    display: block;
+    height: 2px;
+    background: #1977cc;
+    position: absolute;
+    left: 60%;
+    bottom: 8px;
+    width: 0;
+    transition: width 0.3s ease, left 0.3s ease;
+}
 .navbar .dropdown ul {
     display: block;
     position: absolute;
