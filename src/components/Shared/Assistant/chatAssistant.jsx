@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
 import styles from "./chatAssiatance.module.css";
-import { MdClose } from 'react-icons/md';
+import { MdClose, MdVideoCall } from 'react-icons/md';
+import { VideoCall } from './videoCall.jsx';
 const SOCKET_SERVER_ENDPOINT = process.env.REACT_APP_SOCKET_SERVER_ENDPOINT;
 
 let socket;
@@ -11,6 +12,7 @@ const ChatAssistant = ({ data, content, avatar, toogleChatAssitantActive }) => {
   const [message, setMessage] = useState('');
   const [chat, setChat] = useState([]);
   const [notification, setNotification] = useState('');
+  const [videoCall, setVideoCall] = useState(false);
   const [userId, setUserId] = useState(''); // For storing the user identity
   const chatEndRef = useRef(null);
   let timer;
@@ -101,6 +103,10 @@ const ChatAssistant = ({ data, content, avatar, toogleChatAssitantActive }) => {
     });
   }
 
+  const toggleVideoCall = () => {
+    setVideoCall((videoCall) => { return !videoCall });
+  }
+
   const handleEnterKey = (event) => {
     event.preventDefault(); // Prevent default behavior of the Enter key
     sendMessage(); // Call sendMessage function
@@ -115,7 +121,7 @@ const ChatAssistant = ({ data, content, avatar, toogleChatAssitantActive }) => {
               <h2 className='mb-0 text-[15px]'>Room ID: {roomId}</h2>
             </div>
             <div className='absolute right-0 top-0'>
-              <button className="mb-2 hover:bg-red-600 p-2 bg-red-400 rounded-3 flex-[1] text-[15px]" onClick={leaveRoom}><MdClose/></button>
+              <button className="mb-2 hover:bg-red-600 p-2 bg-red-400 rounded-3 flex-[1] text-[15px]" onClick={leaveRoom}><MdClose /></button>
             </div>
           </div>
         }
@@ -127,7 +133,7 @@ const ChatAssistant = ({ data, content, avatar, toogleChatAssitantActive }) => {
                   <li key={index} className='list-none w-full flex justify-end my-[6px]'>
                     <div className='flex flex-row-reverse items-center gap-1 flex-[1]' style={{ maxWidth: '75%' }}>
                       <div className='profileImage'>
-                        <img src={data?.img ? data?.img : avatar} alt="" className="profileImage shadow img-fluid" />
+                        <img src={data?.img ? data?.img : avatar} alt="" className="profileImage img-fluid" />
                       </div>
                       <div className="bg-gradient-to-r from-pink-500 to-orange-500  p-3 rounded-5 flex-[2] flex justify-end max-w-fit">
                         <p>{c.message}</p>
@@ -139,7 +145,7 @@ const ChatAssistant = ({ data, content, avatar, toogleChatAssitantActive }) => {
                     <li key={index} className='list-none  flex justify-start my-[5px]' >
                       <div className='flex flex-row items-center gap-1 flex-[1]' style={{ maxWidth: '75%' }}>
                         <div className='profileImage'>
-                          <img src={data?.img ? data?.img : avatar} alt="" className="profileImage shadow img-fluid" />
+                          <img src={data?.img ? data?.img : avatar} alt="" className="profileImage img-fluid" />
                         </div>
                         <div className="bg-linear-gradient-45-teal-blue-transparent p-3 rounded-5 flex-[2] max-w-fit">
                           <p>{c.message}</p>
@@ -161,18 +167,18 @@ const ChatAssistant = ({ data, content, avatar, toogleChatAssitantActive }) => {
           <div className='flex flex-row w-full align-iten-center justify-content-center gap-2'>
 
             <div>
-              <button className="mb-2 hover:bg-green-600 p-2 bg-green-400 rounded-2xl flex-[1]" onClick={createRoom}>Create Room</button>
+              <button className="green-button flex-[1]" onClick={createRoom}>Create Room</button>
             </div>
             <div>
-              <button className="mb-2 hover:bg-yellow-600 p-2 bg-yellow-400 rounded-2xl flex-[1]" onClick={joinRoom}>Join Room</button>
+              <button className="orange-button flex-[1]" onClick={joinRoom}>Join Room</button>
             </div>
             <div>
-              <button className="mb-2 hover:bg-red-600 p-2 bg-red-400 rounded-2xl flex-[1]" onClick={disconnectSocket}>close</button>
+              <button className="red-button flex-[1]" onClick={disconnectSocket}>close</button>
             </div>
           </div>
         }
 
-        <div className={`${styles['input-container']} mt-[10px]`}>
+        <div className={`${styles['input-container']} mt-[10px] flex gap-[10px]`}>
           <input
             type="text"
             value={message}
@@ -181,9 +187,13 @@ const ChatAssistant = ({ data, content, avatar, toogleChatAssitantActive }) => {
             placeholder="Type a message..."
             className='rounded-3 border-2 border-blue-700 border-dotted focus:border-purple-700 focus:outline-none'
           />
-          <button onClick={sendMessage}>Send</button>
+          <button className="blue-button" onClick={sendMessage}>Send</button>
+          {roomId &&
+            <button className="pink-button" onClick={toggleVideoCall}><MdVideoCall className='text-lg' /></button>
+          }
         </div>
       </div>
+      {videoCall && <VideoCall socket={socket} roomId={roomId} toggleVideoCall={toggleVideoCall} />}
     </div >
   );
 };
