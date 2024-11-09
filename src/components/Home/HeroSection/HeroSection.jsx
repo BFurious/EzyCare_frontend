@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import './index.css';
 import { Link } from 'react-router-dom';
-import { showSlides, changeSlide } from "../../../utils/slideshow"
+import { showSlides, changeSlide } from "../../../utils/slideshow";
 
 const HeroSection = () => {
     useEffect(() => {
-        setTimeout(() => { showSlides(); }, 500);
-    }, [])
+        const timer=setTimeout(() => { showSlides(); }, 10);
+    }, []);
     return (
         <section id="hero" className="d-flex align-items-center">
             <div id="gallery-container-1" className="gallery-container">
@@ -26,15 +26,13 @@ const HeroSection = () => {
                 <button className="next-btn" onClick={(e) => changeSlide(1, 'gallery-container-1')}>&#10095;</button>
                 <div className="overlay"></div>
                 <div className="hero-content">
-                    <div>
-                        <small>TOTAL HEALTH CARE SOLUTION</small>
-                        <h1 className="animate-teal-purple-text">Your Most Trusted <br />Health Partner</h1>
-                        <small>A repudiandae ipsam labore ipsa voluptatum quidem quae laudantium quisquam aperiam maiores sunt fugit, deserunt rem suscipit placeat.</small>
-                    </div>
-                    <div className="d-flex justify-content-center gap-2">
-                        <Link to={'/doctors'} className="btn-get-started bg-linear-gradient-45-blue-teal scrollto">Get Started</Link>
-                        <Link to={'/track-appointment'} className="btn-get-started bg-linear-gradient-45-teal-blue scrollto">Track Appointment</Link>
-                    </div>
+                        <p className=''>TOTAL HEALTH CARE SOLUTION</p>
+                        <h1 className="heading"></h1>
+                        <p className=''></p>
+                        <div className="d-flex justify-content-center gap-2">
+                            <Link to={'/doctors'} className="btn-get-started  scrollto">Get Started</Link>
+                            <Link to={'/track-appointment'} className="btn-get-started  scrollto">Track Appointment</Link>
+                        </div>
                 </div>
             </div>
         </section>

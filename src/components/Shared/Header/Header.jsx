@@ -8,6 +8,7 @@ import avatar from '../../../images/avatar.jpg';
 import { Button, message } from 'antd';
 import { loggedOut } from '../../../service/auth.service';
 import HeaderNav from './HeaderNav';
+import ChatAssistant from '../Assistant/chatAssistant';
 
 const Header = () => {
     const navigate = useNavigate();
@@ -15,6 +16,7 @@ const Header = () => {
     const [isLoggedIn, setIsLogged] = useState(false);
     const [show, setShow] = useState(true);
     const [open, setOpen] = useState(false);
+    const [chatAssistantActive, setChatAssistantActive] = useState(false);
 
     // const lastScrollRef = useRef(0);
     const handleScroll = () => {
@@ -41,14 +43,13 @@ const Header = () => {
         navigate('/');
     }
 
-
     const content = (
         <div className='nav-popover'>
             <div className='my-2'>
                 <h5 className='text-capitalize'>{data?.firstName + ' ' + data?.lastName}</h5>
                 <p className='my-0'>{data?.email}</p>
                 <Link to="/dashboard">
-                    <button className='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-pink-500 hover:to-orange-500 w-100 text-white font-bold rounded py-1' onClick={hanldeSignOut}>
+                    <button className='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-pink-500 hover:to-orange-500 w-100 text-white font-bold rounded py-1'>
                         Dashboard
                     </button>
                 </Link>
@@ -72,8 +73,23 @@ const Header = () => {
                     <HeaderNav isLoggedIn={isLoggedIn} data={data}
                         avatar={avatar} content={content} open={open} setOpen={setOpen} />
                     <Link to={'/appointment'} className="bg-gradient-to-r from-teal-400 to-blue-500 hover:from-indigo-500 hover:via-purple-500 hover:to-pink-500 font-bold appointment-btn scrollto"><span className="d-none d-md-inline">Make an</span> Appointment</Link>
+                    <span
+                        className="bg-gradient-to-r from-teal-400 to-blue-500 hover:from-indigo-500 hover:via-purple-500 hover:to-pink-500 font-bold appointment-btn scrollto"
+                        style={{ display: `${chatAssistantActive ? "none" : "block"}` }}
+                        onClick={(e) => setChatAssistantActive(!chatAssistantActive)}>
+                        ChatAssistant
+                    </span>
                 </div>
             </header>
+            <div className={`chat-container ${chatAssistantActive ? 'active p-[10px] border-2 border-blue-200 border-solid' : 'notActive'}`}>
+                <ChatAssistant
+                    isLoggedIn={true}
+                    data={{ someData: 'example' }}
+                    avatar="avatar.png"
+                    content="Hello, how can I assist you today?"
+                    toggleChatAssistantActive={setChatAssistantActive}
+                />
+            </div>
         </>
     )
 }

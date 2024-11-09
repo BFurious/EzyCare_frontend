@@ -102,38 +102,21 @@
   transform: translateY(-50%) translateX(-20px);
 }
 
-.hero-content h1 {
-  font-size: 2.5em;
-  margin: 20px -20px;
-}
-
 .active-hero-content-h1{
   opacity: 1 !important;
-  transform: translateY(0) translateX(20px); 
+  transform: translateY(0) translateX(0px) !important; 
 }
 
 .active-hero-content-p{
   opacity: 1  !important;
-  transform: translateY(0%) translateX(-50px); 
+  transform: translateY(0%) translateX(0px) !important; 
 }
 
 .active-hero-content-btn{
   opacity: 1 !important;
-  transform: translateY(-20px) translateX(0%); 
+  transform: translateY(0px) translateX(0%) !important; 
 }
   
-  #hero h1 {
-    margin: 0;
-    font-size: 48px;
-    font-weight: 700;
-    line-height: 56px;
-    text-transform: uppercase;
-    background: linear-gradient(to right,#2dd4bf, #0056a3); /* Gradient colors */
-    -webkit-background-clip: text; /* For Safari and Chrome */
-    background-clip: text; /* For modern browsers */
-    color: transparent;
-  }
-
   #hero h2 {
     color: #2c4964;
     margin: 10px 0 0 0;
@@ -143,26 +126,7 @@
   .active {
     opacity: 1 !important;
 }
-
-  #hero .btn-get-started {
-    font-family: "Raleway", sans-serif;
-    text-transform: uppercase;
-    font-weight: 500;
-    font-size: 14px;
-    letter-spacing: 1px;
-    display: inline-block;
-    padding: 12px 35px;
-    margin-top: 30px;
-    border-radius: 50px;
-    color: #fff;
-  }
-  
-  #hero .btn-get-started:hover {
-    background: #3291e6;
-  }
-
-
-  
+    
   @media (min-width: 1024px) {
     #hero {
       background-attachment: fixed;
@@ -196,7 +160,7 @@
       height: 60vh;
     }
 
-    #hero .btn-get-started {
+    .btn-get-started {
       font-size: 12px;
       padding: 8px 10px;
     }

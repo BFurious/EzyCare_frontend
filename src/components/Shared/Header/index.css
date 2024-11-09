@@ -1,3 +1,25 @@
+.chat-container {
+    margin: auto;
+    position: fixed;
+    bottom:10px;
+    right:10px;
+    z-index:1000; 
+    background: aliceblue;
+    resize:vertical;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: 0.5s ease; /* Adjust timing as needed */
+  }
+  
+.chat-container.active {
+    max-height: 700px; /* Set to your desired max height */
+    max-width: 700px;
+}
+.chat-container.notActive {
+    max-height: 0px; /* Set to your desired max height */
+    max-width: 0px;
+}
+
 .nav-popover h5{
     font-size: 18px;
     margin-bottom: 0;
@@ -98,10 +120,7 @@
     margin-left: 5px;
 }
 
-.navbar a:hover,
-.navbar .active,
-.navbar .active:focus,
-.navbar li:hover>a {
+.navbar .active {
     border-color: #1977cc;
     background: linear-gradient(to right, teal, blue, purple); /* Gradient colors */
     -webkit-background-clip: text; /* For Safari and Chrome */
@@ -109,6 +128,22 @@
     color: transparent;
 }
 
+.navbar li:hover>a::after{
+    width: 80%; /* Expand to full width */
+    left: 25%; /* Align to the left */
+}
+
+.navbar li>a::after{
+    content: '';
+    display: block;
+    height: 2px;
+    background: #1977cc;
+    position: absolute;
+    left: 60%;
+    bottom: 8px;
+    width: 0;
+    transition: width 0.3s ease, left 0.3s ease;
+}
 .navbar .dropdown ul {
     display: block;
     position: absolute;
@@ -194,10 +229,13 @@
     #navbar ul {
         display: none;
     }
+    .mobile-menu-nav  a{
+        display: flex !important;
+    }
 }
 
 .appointment-btn {
-    margin-left: 25px;
+    margin-left: 13px;
     color: #fff;
     border-radius: 50px;
     padding: 8px 25px;
@@ -209,7 +247,9 @@
 
 .appointment-btn:hover {
     color: #fff;
-}
+}   
+
+
 
 @media (max-width: 768px) {
     .appointment-btn {

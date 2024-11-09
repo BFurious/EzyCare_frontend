@@ -80,8 +80,8 @@ const SignIn = ({ handleResponse }) => {
                             <Toast.Body>Use this account to sign in as a doctor <br />
                                 <hr />
                                 <div className='bg-dark text-white p-2 px-3 rounded'>
-                                    email : doctor@gmail.com <br />
-                                    password : 123456 <br />
+                                    email : bfurious+10@gmail.com <br />
+                                    password : Test1234@<br />
                                 </div>
                                 <hr />
                                 <div className='bg-primary p-2 rounded text-white'>
