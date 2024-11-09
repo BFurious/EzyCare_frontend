@@ -1,3 +1,25 @@
+.chat-container {
+    margin: auto;
+    position: fixed;
+    bottom:10px;
+    right:10px;
+    z-index:1000; 
+    background: aliceblue;
+    resize:vertical;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: 0.5s ease; /* Adjust timing as needed */
+  }
+  
+.chat-container.active {
+    max-height: 700px; /* Set to your desired max height */
+    max-width: 700px;
+}
+.chat-container.notActive {
+    max-height: 0px; /* Set to your desired max height */
+    max-width: 0px;
+}
+
 .nav-popover h5{
     font-size: 18px;
     margin-bottom: 0;
@@ -207,6 +229,9 @@
     #navbar ul {
         display: none;
     }
+    .mobile-menu-nav  a{
+        display: flex !important;
+    }
 }
 
 .appointment-btn {
@@ -222,7 +247,9 @@
 
 .appointment-btn:hover {
     color: #fff;
-}
+}   
+
+
 
 @media (max-width: 768px) {
     .appointment-btn {

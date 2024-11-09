@@ -64,18 +64,32 @@ export const VideoCall = ({ socket, roomId, toggleVideoCall }) => {
 
     return (<>
         <div className='shadow'></div>
-        <div className='fixed flex flex-column justify-center items-center w-1/2 h-1/2 top-1/3 p-[10px]' style={{ background: "white", zIndex: "100" }}>
-            <div>
-                <h2 className='center'>Video Call</h2>
+        <div className="flex flex-col justify-center items-center fixed left-[5%] right-[5%] top-[10%] md:left-[25%] md:top-[10%] bg-black/90 p-[20px] rounded md:max-h-[50%] max-h-[100%] gap-4 md:w-1/2" style={{ zIndex: "100" }}>
+            <div className="flex-[1]">
+                <div className="flex flex-row gap-2 p-2 bg-orange-300 rounded-3 items-center blue-button">
+                    <div>
+                        <h2 className="center text-white">Video Call</h2>
+                    </div>
+                    <div>
+                        <h2 className="mb-0 text-[15px]">Room ID: {roomId}</h2>
+                    </div>
+                </div>
             </div>
-            <div className='flex flex-row flex-[1] gap-[10px] relative'>
-                <video className='relative flex-[1]' style={{ width: "250px", height: "200px" }} ref={localVideoRef} autoPlay playsInline muted></video>
-                <video className='relative flex-[1]' style={{ width: "250px", height: "200px" }} ref={remoteVideoRef} autoPlay playsInline alt="sdfsd"></video>
+
+            <div className="flex flex-col flex-[1] md:flex-row gap-[10px] relative items-center max-w-[100%] overflow-hidden">
+                <div className="rounded-4 md:w-1/2 m-4" >
+                    <video className="relative w-full max-h-full object-contain shadow-[0px_0px_16px_white]" ref={localVideoRef} autoPlay muted ></video>
+                </div>
+                <div className="rounded-4 md:w-1/2 m-4">
+                    <video className="relative w-full max-h-full object-contain shadow-[0px_0px_16px_white]" ref={remoteVideoRef} autoPlay playsInline alt="remote"></video>
+                </div>
             </div>
-            <div>
+
+            <div className="flex-[1]">
                 <button className="red-button" onClick={toggleVideoCall}>Stop Video Call</button>
             </div>
         </div>
+
     </>
     );
 };

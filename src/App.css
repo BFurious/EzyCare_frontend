@@ -51,6 +51,48 @@ a:hover {
     background-color: #002c5c;
 }
 
+.hero-content{
+    width: 80%;
+    margin: auto;
+}
+
+.hero-content h1, .hero-content p, .hero-content div{
+    opacity: 0;
+    margin: 0 auto;
+    transition: 0.5s ease-in-out;
+    white-space: normal; 
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+
+.hero-content h1{
+    font-weight: 700;
+    line-height: 56px;
+    transform: translateY(0) translateX(-20px); 
+    text-transform: uppercase;
+    background: linear-gradient(to right, #027de9, #2dd4bf, #027de9); /* Gradient colors */
+    -webkit-background-clip: text; /* For Safari and Chrome */
+    transition: 0.5s;
+    background-size: 200% auto;
+    background-clip: text; /* For modern browsers */
+    color: transparent;
+    font-size: 2.5em;
+  }
+.hero-content h1:hover{
+    background-position: right center;
+  }
+  
+.hero-content p{
+    transform: translateY(0%) translateX(20px); 
+    color: white;
+}
+
+.hero-content div{
+    transform: translateY(20px) translateX(0%); 
+    color: white;
+}
+
 body {
     overflow-x: hidden;
     font-family: 'Poppins', sans-serif;
@@ -147,6 +189,7 @@ button{
     margin-top: -13px;
     padding: 5px 15px 0;
     transition: border-color .3s;
+
     width: 100%;
 }
 
@@ -160,11 +203,14 @@ button{
     padding: 12px 35px;
     margin-top: 30px;
     border-radius: 50px;
-    transition: transform 0.5s ease-in-out;
-    color: #fff;
+    background: linear-gradient(45deg, #3b82f6, #2dd4bf, #3b82f6 );
+    transition: 0.5s ease-in-out;
+    color: #fff !important;
+    background-size:200% auto;
 }
 
 .btn-get-started:hover{
+    background-position: right center ;
     transform: scale(1.05);
 }
 
@@ -268,6 +314,7 @@ button{
     top: 0;
 }
 
+/* button themes */
 .grape-button, .green-button , .orange-button, .pink-button, .blue-button, .teal-button, .purple-button, .red-button{
     border: none;
     padding: 10px 15px;
@@ -333,3 +380,14 @@ button{
     top: 0;
     z-index: 1;
   }
+
+button{
+    background-size: 200% auto;
+    transition:0.5;
+}
+
+button:hover{
+    transform: scale(1.05);
+    background-position: right center;
+}
+

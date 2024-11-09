@@ -16,7 +16,7 @@ const Header = () => {
     const [isLoggedIn, setIsLogged] = useState(false);
     const [show, setShow] = useState(true);
     const [open, setOpen] = useState(false);
-    const [chatAssitantActive, setChatAssitantActive] = useState(false);
+    const [chatAssistantActive, setChatAssistantActive] = useState(false);
 
     // const lastScrollRef = useRef(0);
     const handleScroll = () => {
@@ -75,16 +75,21 @@ const Header = () => {
                     <Link to={'/appointment'} className="bg-gradient-to-r from-teal-400 to-blue-500 hover:from-indigo-500 hover:via-purple-500 hover:to-pink-500 font-bold appointment-btn scrollto"><span className="d-none d-md-inline">Make an</span> Appointment</Link>
                     <span
                         className="bg-gradient-to-r from-teal-400 to-blue-500 hover:from-indigo-500 hover:via-purple-500 hover:to-pink-500 font-bold appointment-btn scrollto"
-                        style={{display:`${chatAssitantActive ? "none": "block"}`}}
-                        onClick={(e)=>setChatAssitantActive(!chatAssitantActive)}>
+                        style={{ display: `${chatAssistantActive ? "none" : "block"}` }}
+                        onClick={(e) => setChatAssistantActive(!chatAssistantActive)}>
                         ChatAssistant
                     </span>
                 </div>
             </header>
-            {
-                chatAssitantActive && <ChatAssistant isLoggedIn={isLoggedIn} data={data}
-                avatar={avatar} content={content} toogleChatAssitantActive= {setChatAssitantActive}/>
-            }
+            <div className={`chat-container ${chatAssistantActive ? 'active p-[10px] border-2 border-blue-200 border-solid' : 'notActive'}`}>
+                <ChatAssistant
+                    isLoggedIn={true}
+                    data={{ someData: 'example' }}
+                    avatar="avatar.png"
+                    content="Hello, how can I assist you today?"
+                    toggleChatAssistantActive={setChatAssistantActive}
+                />
+            </div>
         </>
     )
 }
