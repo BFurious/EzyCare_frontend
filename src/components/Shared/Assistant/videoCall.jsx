@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from "./chatAssiatance.module.css";
 
-export const VideoCall = ({ socket, roomId, toggleVideoCall, notification }) => {
+export const VideoCall = ({ socket, roomId, toggleVideoCall, notification, handleNotifaction }) => {
     const localVideoRef = useRef(null);
     const remoteVideoRef = useRef(null);
     const [peerConnection, setPeerConnection] = useState(null);
@@ -54,14 +54,35 @@ export const VideoCall = ({ socket, roomId, toggleVideoCall, notification }) => 
 
         // Cleanup on component unmount
         return () => {
+            debugger
+
             socket.off('offer');
             socket.off('answer');
             socket.off('ice-candidate');
-            peerConnection?.close();
-
+            if (peerConnection) {
+                peerConnection.close();
+                setPeerConnection(null);
+            }
         };
     }, [socket, roomId]);
 
+    const stopVideoCall = () => {
+        if (localVideoRef.current && localVideoRef.current.srcObject) {
+            const stream = localVideoRef.current.srcObject;
+            stream.getTracks().forEach((track) => track.stop()); // Stop each track
+            localVideoRef.current.srcObject = null; // Clear the video source
+        }
+        socket.emit("end-video-call", { roomId }, (response) => {
+            if (response.error) {
+                handleNotifaction(response.error);
+            } else {
+                handleNotifaction('Left Video Call successfully');
+            }
+        })
+
+        toggleVideoCall()
+
+    }
 
     return (<>
         <div className='shadow'></div>
@@ -91,7 +112,7 @@ export const VideoCall = ({ socket, roomId, toggleVideoCall, notification }) => 
                 }
             </div>
             <div className="flex-[1]">
-                <button className="red-button" onClick={toggleVideoCall}>Stop Video Call</button>
+                <button className="red-button" onClick={stopVideoCall}>Stop Video Call</button>
             </div>
         </div>
 
