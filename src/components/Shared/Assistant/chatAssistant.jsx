@@ -3,7 +3,6 @@ import io from 'socket.io-client';
 import styles from "./chatAssiatance.module.css";
 import { MdClose, MdVideoCall } from 'react-icons/md';
 import { VideoCall } from './videoCall.jsx';
-import { current } from '@reduxjs/toolkit';
 const SOCKET_SERVER_ENDPOINT = process.env.REACT_APP_SOCKET_SERVER_ENDPOINT;
 
 let socket;
@@ -197,7 +196,7 @@ const ChatAssistant = ({ data, content, avatar, toggleChatAssistantActive }) => 
           </div>
         </div>
       }
-      {videoCall && <VideoCall socket={socket} roomId={roomId} toggleVideoCall={toggleVideoCall} />}
+      {videoCall && <VideoCall socket={socket} roomId={roomId} toggleVideoCall={toggleVideoCall} notification= {notification}/>}
     </>
   );
 };
