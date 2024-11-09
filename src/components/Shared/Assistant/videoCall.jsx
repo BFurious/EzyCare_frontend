@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
+import styles from "./chatAssiatance.module.css";
 
-export const VideoCall = ({ socket, roomId, toggleVideoCall }) => {
+export const VideoCall = ({ socket, roomId, toggleVideoCall, notification, handleNotifaction }) => {
     const localVideoRef = useRef(null);
     const remoteVideoRef = useRef(null);
     const [peerConnection, setPeerConnection] = useState(null);
@@ -53,14 +54,35 @@ export const VideoCall = ({ socket, roomId, toggleVideoCall }) => {
 
         // Cleanup on component unmount
         return () => {
+            debugger
+
             socket.off('offer');
             socket.off('answer');
             socket.off('ice-candidate');
-            peerConnection?.close();
-
+            if (peerConnection) {
+                peerConnection.close();
+                setPeerConnection(null);
+            }
         };
     }, [socket, roomId]);
 
+    const stopVideoCall = () => {
+        if (localVideoRef.current && localVideoRef.current.srcObject) {
+            const stream = localVideoRef.current.srcObject;
+            stream.getTracks().forEach((track) => track.stop()); // Stop each track
+            localVideoRef.current.srcObject = null; // Clear the video source
+        }
+        socket.emit("end-video-call", { roomId }, (response) => {
+            if (response.error) {
+                handleNotifaction(response.error);
+            } else {
+                handleNotifaction('Left Video Call successfully');
+            }
+        })
+
+        toggleVideoCall()
+
+    }
 
     return (<>
         <div className='shadow'></div>
@@ -76,17 +98,21 @@ export const VideoCall = ({ socket, roomId, toggleVideoCall }) => {
                 </div>
             </div>
 
-            <div className="flex flex-col flex-[1] md:flex-row gap-[10px] relative items-center max-w-[100%] overflow-hidden">
+            <div className={`flex flex-col flex-[1] md:flex-row gap-[10px] relative items-center max-w-[100%] overflow-hidden ${notification ? 'pb-5  md:pb-10' : ''}`} >
                 <div className="rounded-4 md:w-1/2 m-4" >
                     <video className="relative w-full max-h-full object-contain shadow-[0px_0px_16px_white]" ref={localVideoRef} autoPlay muted ></video>
                 </div>
                 <div className="rounded-4 md:w-1/2 m-4">
                     <video className="relative w-full max-h-full object-contain shadow-[0px_0px_16px_white]" ref={remoteVideoRef} autoPlay playsInline alt="remote"></video>
                 </div>
+                {
+                    <div className={styles['notification']} style={notification ? { opacity: '1' } : { opacity: '0' }}>
+                        <p>{notification}</p>
+                    </div>
+                }
             </div>
-
             <div className="flex-[1]">
-                <button className="red-button" onClick={toggleVideoCall}>Stop Video Call</button>
+                <button className="red-button" onClick={stopVideoCall}>Stop Video Call</button>
             </div>
         </div>
 

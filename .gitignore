@@ -15,7 +15,7 @@ api/logs/winston
 # misc
 .DS_Store
 .env.local
-.env.development
+.env
 .env.test.local
 
 npm-debug.log*

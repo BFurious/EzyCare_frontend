@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
 import styles from "./chatAssiatance.module.css";
-import { MdClose, MdVideoCall } from 'react-icons/md';
+import { MdClose, MdVideoCall, MdFullscreen, MdFullscreenExit } from 'react-icons/md';
 import { VideoCall } from './videoCall.jsx';
-import { current } from '@reduxjs/toolkit';
 const SOCKET_SERVER_ENDPOINT = process.env.REACT_APP_SOCKET_SERVER_ENDPOINT;
 
 let socket;
@@ -14,6 +13,7 @@ const ChatAssistant = ({ data, content, avatar, toggleChatAssistantActive }) => 
   const [chat, setChat] = useState([]);
   const [notification, setNotification] = useState('');
   const [videoCall, setVideoCall] = useState(false);
+  const [maximizeChatBox, toggleMaximizeChatBox] = useState(false);
   const [userId, setUserId] = useState(''); // For storing the user identity
   const chatEndRef = useRef(null);
   let timer;
@@ -128,8 +128,8 @@ const ChatAssistant = ({ data, content, avatar, toggleChatAssistantActive }) => 
               </div>
             </div>
           }
-          <div className={styles['chat-box-container']}>
-            <div className={styles['chat-box']}>
+          <div className={styles['chat-box-container']} style={{ height: maximizeChatBox ? "460px" : "" }}>
+            <div className={styles['chat-box']} style={{ height: maximizeChatBox ? "420px" : "" }}>
               <div className={styles['scroll-content']}>
                 {chat.map((c, index) => (
                   c.sender === userId ? (
@@ -175,11 +175,19 @@ const ChatAssistant = ({ data, content, avatar, toggleChatAssistantActive }) => 
               <div>
                 <button className="orange-button flex-[1]" onClick={joinRoom}>Join Room</button>
               </div>
-              <div>
-                <button className="red-button flex-[1]" onClick={disconnectSocket}>close</button>
+              <div className='absolute right-0 top-0'>
+                <button className="mb-2 red-button p-2 bg-red-400 rounded-3 flex-[1] text-[15px]" onClick={disconnectSocket}><MdClose /></button>
               </div>
             </div>
           }
+          <div className='absolute left-0 top-0'>
+            <button
+              className="maximize mb-2 teal-button p-2 bg-red-400 rounded-3 flex-[1] text-[15px]"
+              onClick={(e) => toggleMaximizeChatBox((currentState) => { return !currentState; })}>
+              {maximizeChatBox ? <MdFullscreenExit /> : <MdFullscreen />}
+            </button>
+
+          </div>
 
           <div className={`${styles['input-container']} mt-[10px] flex gap-[10px]`}>
             <input
@@ -197,7 +205,7 @@ const ChatAssistant = ({ data, content, avatar, toggleChatAssistantActive }) => 
           </div>
         </div>
       }
-      {videoCall && <VideoCall socket={socket} roomId={roomId} toggleVideoCall={toggleVideoCall} />}
+      {videoCall && <VideoCall socket={socket} roomId={roomId} toggleVideoCall={toggleVideoCall} notification={notification} handleNotifaction={handleNotifaction} />}
     </>
   );
 };
