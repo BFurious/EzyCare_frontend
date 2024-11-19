@@ -1,26 +1,45 @@
 import { Checkbox, message } from 'antd';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useAuthCheck from '../../redux/hooks/useAuthCheck';
 
 const PersonalInformation = ({ handleChange, selectValue, setCurrentPatientData, patientId }) => {
     const { firstName, lastName, email, phone, reasonForVisit, description, address } = selectValue;
     const [checked, setChecked] = useState(false);
+    const [isFocus, setIsFocus] = useState({});
     const navigate = useNavigate();
     const onChange = (e) => {
         setChecked(e.target.checked);
     };
-    
-    useEffect(() =>{
-        if(checked){
-            if(patientId){
+
+    // Handle onFocus to set focus state
+    const handleFocus = (e) => {
+        const { name } = e.target;
+        setIsFocus((prev) => ({
+            ...prev,
+            [name]: true,
+        }));
+    };
+
+    // Handle onBlur to check if value is empty and reset focus
+    const handleBlur = (e) => {
+        const { name } = e.target;
+        if (!selectValue[name]) {
+            setIsFocus((prev) => ({
+                ...prev,
+                [name]: false,
+            }));
+        }
+    };
+    useEffect(() => {
+        if (checked) {
+            if (patientId) {
                 setCurrentPatientData(!checked);
                 message.success("User Has Found !")
-            }else{
+            } else {
                 message.error("User is not Found, Please Login!")
                 navigate('/login');
             }
-        } else{
+        } else {
             setCurrentPatientData(!checked);
         }
     }, [checked, patientId])
@@ -28,50 +47,87 @@ const PersonalInformation = ({ handleChange, selectValue, setCurrentPatientData,
     return (
         <form className="rounded p-3 mt-5" style={{ background: "#f8f9fa" }}>
             <div className="row">
-                <Checkbox checked={checked} onChange={onChange}>
-                    Use Current Account Details ?
-                </Checkbox>
-
+                <div className="w-full p-1 m-3">
+                    <Checkbox checked={checked} onChange={onChange}>
+                        Use Current Account Details ?
+                    </Checkbox>
+                </div>
                 <div className="col-md-6 col-sm-12">
                     <div className="form-group card-label mb-3">
-                        <label>First Name</label>
-                        <input onChange={(e) => handleChange(e)} name='firstName' value={firstName && firstName} className="form-control" type="text" />
+                        <input
+                            name="firstName"
+                            value={firstName && firstName}
+                            onFocus={handleFocus}
+                            onBlur={handleBlur}
+                            placeholder={`${isFocus.firstName ? "" : "First Name"}`}
+                            onChange={handleChange}
+                            className="form-control"
+                            type="text"
+                        />
+                        <label
+                            className={` ${isFocus.firstName || firstName ? "focus" : ""}`} >
+                            First Name *
+                        </label>
                     </div>
                 </div>
                 <div className="col-md-6 col-sm-12">
                     <div className="form-group card-label mb-3">
-                        <label>Last Name</label>
-                        <input onChange={(e) => handleChange(e)} name='lastName' value={lastName && lastName} className="form-control" type="text" />
+                        <label className={` ${isFocus.lastName || lastName ? "focus" : ""}`}>Last Name *</label>
+                        <input
+                            onFocus={handleFocus}
+                            onBlur={handleBlur}
+                            placeholder={`${isFocus.lastName ? "" : "Last Name"}`}
+                            onChange={(e) => handleChange(e)} name='lastName' value={lastName && lastName} className="form-control" type="text" />
                     </div>
                 </div>
                 <div className="col-md-6 col-sm-12">
                     <div className="form-group card-label mb-3">
-                        <label>Email</label>
-                        <input onChange={(e) => handleChange(e)} name='email' value={email && email} className="form-control" type="email" />
+                        <label className={` ${isFocus.email || email ? "focus" : ""}`}>Email *</label>
+                        <input
+                            onFocus={handleFocus}
+                            onBlur={handleBlur}
+                            placeholder={`${isFocus.email ? "" : "Email"}`}
+                            onChange={(e) => handleChange(e)} name='email' value={email && email} className="form-control" type="email" />
                     </div>
                 </div>
                 <div className="col-md-6 col-sm-12">
                     <div className="form-group card-label mb-3">
-                        <label>Phone</label>
-                        <input onChange={(e) => handleChange(e)} name='phone' value={phone && phone} className="form-control" type="text" />
+                        <label className={` ${isFocus.phone || phone ? "focus" : ""}`}>Phone *</label>
+                        <input
+                            onFocus={handleFocus}
+                            onBlur={handleBlur}
+                            placeholder={`${isFocus.phone ? "" : "Phone"}`}
+                            onChange={(e) => handleChange(e)} name='phone' value={phone && phone} className="form-control" type="text" />
                     </div>
                 </div>
                 <div className="col-md-6 col-sm-12">
                     <div className="form-group card-label mb-3">
-                        <label>Reason For Visit</label>
-                        <textarea rows={8} onChange={(e) => handleChange(e)} name='reasonForVisit' value={reasonForVisit && reasonForVisit} className="form-control" type="text" />
+                        <label className={` ${isFocus.reasonForVisit || reasonForVisit ? "focus" : ""}`}>Reason For Visit *</label>
+                        <textarea rows={8}
+                            onFocus={handleFocus}
+                            onBlur={handleBlur}
+                            placeholder={`${isFocus.reasonForVisit ? "" : "Reason For Visit"}`}
+                            onChange={(e) => handleChange(e)} name='reasonForVisit' value={reasonForVisit && reasonForVisit} className="form-control" type="text" />
                     </div>
                 </div>
                 <div className="col-md-6 col-sm-12">
                     <div className="form-group card-label mb-3">
-                        <label>Description</label>
-                        <textarea rows={8} onChange={(e) => handleChange(e)} name='description' value={description && description} className="form-control" type="text" />
+                        <label className={` ${isFocus.description || description ? "focus" : ""}`} >Description</label>
+                        <textarea rows={8}
+                            onFocus={handleFocus}
+                            onBlur={handleBlur}
+                            placeholder={`${isFocus.description ? "" : "Description"}`}
+                            onChange={(e) => handleChange(e)} name='description' value={description && description} className="form-control" type="text" />
                     </div>
                 </div>
                 <div className="col-md-6 col-sm-12">
                     <div className="form-group card-label mb-3">
-                        <label>Address</label>
-                        <input onChange={(e) => handleChange(e)} name='address' value={address && address} className="form-control" type="text" />
+                        <label className={`${isFocus.address || address ? "focus" : ""}`}>Address</label>
+                        <input
+                            onFocus={handleFocus}
+                            onBlur={handleBlur}
+                            placeholder={`${isFocus.address ? "" : "Address"}`}
+                            onChange={(e) => handleChange(e)} name='address' value={address && address} className="form-control" type="text" />
                     </div>
                 </div>
             </div>
