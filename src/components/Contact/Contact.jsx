@@ -9,18 +9,18 @@ import { useContactMutation } from '../../redux/api/contactApi';
 import { message } from 'antd';
 
 const Contact = () => {
-    const [contact, {isLoading, isError, error, isSuccess}]= useContactMutation();
+    const [contact, { isLoading, isError, error, isSuccess }] = useContactMutation();
     const { register, handleSubmit, reset } = useForm({});
     const onSubmit = (data) => {
         contact(data);
         reset();
     };
-    
+
     useEffect(() => {
-        if(isSuccess){
+        if (isSuccess) {
             message.success("Successfully Message Send !");
         }
-        if(isError && error){
+        if (isError && error) {
             message.error(error?.data?.message);
         }
     }, [isSuccess, isError, error])
@@ -67,14 +67,14 @@ const Contact = () => {
                                     <div className="col-md-6">
                                         <div className="form-group mb-2 card-label">
                                             <label>First Name</label>
-                                            <input required {...register("firstName")} className="form-control" placeholder='First Name'/>
+                                            <input required {...register("firstName")} className="form-control" placeholder='First Name' />
                                         </div>
                                     </div>
 
                                     <div className="col-md-6">
                                         <div className="form-group mb-2 card-label">
                                             <label>Last Name</label>
-                                            <input required {...register("lastName")} className="form-control" placeholder='Last Name'/>
+                                            <input required {...register("lastName")} className="form-control" placeholder='Last Name' />
                                         </div>
                                     </div>
 
@@ -88,14 +88,14 @@ const Contact = () => {
                                     <div className="col-md-12">
                                         <div className="form-group mb-2 card-label">
                                             <label>Subject</label>
-                                            <input required {...register("subject")} className="form-control" placeholder="Enter your subject"/>
+                                            <input required {...register("subject")} className="form-control" placeholder="Enter your subject" />
                                         </div>
                                     </div>
 
                                     <div className="col-md-12">
                                         <div className="form-group">
                                             <label className='form-label'>Message</label>
-                                            <textarea required {...register("text")} className="form-control mb-3" cols="30" rows="10" placeholder="enter your message"/>
+                                            <textarea required {...register("text")} className="form-control mb-3" cols="30" rows="10" placeholder="enter your message" />
                                         </div>
                                     </div>
 
@@ -110,7 +110,8 @@ const Contact = () => {
                 <div>
                     <div className="container">
                         {/* eslint-disable-next-line */}
-                        <iframe style={{ border: 0, width: "100%", height: "350px" }} src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621" frameborder="0" allowfullscreen></iframe>
+                        <iframe style={{ border: 0, width: "100%", height: "350px" }} src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d56013.65403427467!2d77.01403261097845!3d28.66410857598192!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d030c343754b7%3A0xb9b31fe15300e974!2sKhetarpal%20Hospital%20-%20Bali%20Nagar!5e0!3m2!1sen!2sin!4v1732223979463!5m2!1sen!2sin" frameborder="0" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
             </section>
