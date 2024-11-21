@@ -12,7 +12,7 @@ const AppointmentTimeLine = ({data}) => {
 
                 <li className="timeline-item mb-5 position-relative">
                   <div className="timeline-badge bg-white"></div>
-                  <div className="timeline-panel position-relative shadow rounded p-2" style={{maxWidth:'220px'}}>
+                  <div className="timeline-panel position-relative  rounded p-2" style={{maxWidth:'220px'}}>
                     <div>
                       <h6>Payment - {data?.paymentStatus}</h6>
                       <p className="form-text mb-0">{appointStatusDsc?.payment}</p>
@@ -22,7 +22,7 @@ const AppointmentTimeLine = ({data}) => {
 
                 <li className="timeline-item mb-5 position-relative">
                   <div className="timeline-badge bg-white"></div>
-                  <div className="timeline-panel position-relative shadow rounded p-2" style={{maxWidth:'220px'}}>
+                  <div className="timeline-panel position-relative rounded p-2" style={{maxWidth:'220px'}}>
                     <div>
                       <h6>Appointment - {data?.status}</h6>
                       <p className="form-text mb-0">{appointStatusDsc.appointment[data?.status]}</p>
@@ -32,7 +32,7 @@ const AppointmentTimeLine = ({data}) => {
 
                 <li className="timeline-item mb-5 position-relative">
                   <div className="timeline-badge bg-white"></div>
-                  <div className="timeline-panel position-relative shadow rounded p-2" style={{maxWidth:'220px'}}>
+                  <div className="timeline-panel position-relative  rounded p-2" style={{maxWidth:'220px'}}>
                     <div>
                       <h6>Follow-up Date - {data?.followUp ? data?.followUp : 'Not Scheduled Yet'}</h6>
                       <p className="form-text mb-0">{data?.followUp && appointStatusDsc.followUpDate}</p>
@@ -42,7 +42,7 @@ const AppointmentTimeLine = ({data}) => {
 
                 <li className="timeline-item mb-5 position-relative">
                   <div className="timeline-badge bg-white"></div>
-                  <div className="timeline-panel position-relative shadow rounded p-2" style={{maxWidth:'220px'}}>
+                  <div className="timeline-panel position-relative  rounded p-2" style={{maxWidth:'220px'}}>
                     <div>
                       <h6>Prescription - {data?.prescriptionStatus}</h6>
                       <p className="form-text mb-0">{appointStatusDsc.prescriptionStatus[data?.prescriptionStatus]}</p>

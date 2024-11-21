@@ -76,7 +76,7 @@ const About = () => {
 
                     <div className="col-lg-8">
 
-                        <img src={ImageHeading} alt="" className="img-fluid rounded shadow" />
+                        <img src={ImageHeading} alt="" className="img-fluid rounded" />
                     </div>
                 </div>
             </div>

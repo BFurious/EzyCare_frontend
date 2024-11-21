@@ -2,7 +2,7 @@ import React from 'react';
 import './Footer.css';
 import logo from '../../../images/logo.png';
 import { Link } from 'react-router-dom';
-import { FaAngleDoubleRight } from "react-icons/fa";
+import { FaAngleDoubleRight, FaHome } from "react-icons/fa";
 
 const Footer = () => {
 	return (
@@ -18,7 +18,7 @@ const Footer = () => {
 									</Link>
 								</div>
 								<div className="footer-about-content">
-									<p className='form-text' style={{maxWidth:200}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+									<p className='form-text' style={{ maxWidth: 200 }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
 								</div>
 							</div>
 						</div>
@@ -45,6 +45,7 @@ const Footer = () => {
 									<li><Link to={'/login'}><FaAngleDoubleRight className='icon' /> Login</Link></li>
 									<li><Link to={'/register'}><FaAngleDoubleRight className='icon' /> Register</Link></li>
 									<li><Link to={'/dashboard'}><FaAngleDoubleRight className='icon' /> Doctor Dashboard</Link></li>
+									<li><Link to={'/terms'}><FaAngleDoubleRight className='icon' /> Terms & Condition</Link></li>
 								</ul>
 							</div>
 						</div>
@@ -53,18 +54,27 @@ const Footer = () => {
 							<div className="footer-widget footer-contact">
 								<h2 className="footer-title mt-3 mt-md-0">Contact Us</h2>
 								<div className="footer-contact-info">
-									<div className="footer-address">
-										<span><i className="fas fa-map-marker-alt"></i></span>
-										<p> Kunwar singh Nagar, Nangloi, New Delhi-110041 </p>
+									<div className="footer-widget footer-menu">
+										<div className="footer-address flex flex-row items-center gap-[10px]">
+											<div><FaHome /></div>
+											<div>
+												<p> Kunwar singh Nagar, Nangloi, New Delhi-110041 </p>
+												<p>
+													<i className="fas fa-phone-alt"></i>
+													+88 017 51 040425
+												</p>
+												<p className="mb-0">
+													<i className="fas fa-envelope"></i>
+													ashutoshth456@gmail.com
+												</p>
+											</div>
+										</div>
+										<ul>
+											<li><Link to={'/refund'}><FaAngleDoubleRight className='icon' /> Refund Policy</Link></li>
+											<li><Link to={'/privacy'}><FaAngleDoubleRight className='icon' /> Privacy Policy</Link></li>
+
+										</ul>
 									</div>
-									<p>
-										<i className="fas fa-phone-alt"></i>
-										+88 017 51 040425
-									</p>
-									<p className="mb-0">
-										<i className="fas fa-envelope"></i>
-										ashutoshth456@gmail.com
-									</p>
 								</div>
 							</div>
 						</div>
@@ -98,7 +108,7 @@ const Footer = () => {
 				</div>
 			</div>
 
-		</footer>
+		</footer >
 	);
 };
 

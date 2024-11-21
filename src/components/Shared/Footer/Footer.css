@@ -14,6 +14,7 @@
     margin-bottom: 30px;
     text-transform: capitalize;
 }
+
 .footer .footer-widget.footer-menu ul {
     list-style: none;
     margin: 0;
@@ -49,6 +50,11 @@
 	letter-spacing: 0.5px;
 	padding-left: 10px;
 }
+
+.footer .icon{
+	display: inline-block;
+}
+
 .footer-contact-info {
 	color: #fff;
 	font-size: 15px;

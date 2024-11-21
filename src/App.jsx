@@ -30,6 +30,7 @@ import Blog from './components/Blog/Blog';
 import BlogDetails from './components/Blog/BlogDetails';
 import Contact from './components/Contact/Contact';
 import About from './components/About/About';
+import Terms from './components/About/Terms';
 import Service from './components/Service/Service';
 import AppointmentPage from './components/Appointment/AppointmentPage';
 import TrackAppointment from './components/TrackAppointment/TrackAppointment';
@@ -42,6 +43,8 @@ import ForgotPassword from './components/Login/ForgotPassword';
 import Dashboard from './components/Doctor/Dashboard/Dashboard';
 import PrivateOutlet from './components/Shared/PrivateOutlet';
 import NotFound from './components/UI/NotFound';
+import RefundPolicy from './components/About/RefundPolicy';
+import PrivacyPolicy from './components/About/PrivacyPolicy';
 
 function App() {
   return (
@@ -71,6 +74,9 @@ function App() {
         <Route path='/contact' element={<Contact />} />
         <Route path='/about' element={<About />} />
         <Route path='/service' element={<Service />} />
+        <Route path='/terms' element={<Terms />} />
+        <Route path='/privacy' element={<PrivacyPolicy />} />
+        <Route path='/refund' element={<RefundPolicy />} />
         <Route path='/reset-password/:userId/:uniqueString' element={<ForgotPassword />} />
         <Route path='/appointment' element={<AppointmentPage />} />
         <Route path='/track-appointment' element={<TrackAppointment />} />
@@ -91,7 +97,7 @@ function App() {
         <Route path='/admin/transaction' element={<Transactions />} />
         <Route path='/admin/specialites' element={<Specialites />} />
 
-        <Route path='*' element={<NotFound/>}/>
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </Router >
   );
