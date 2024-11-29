@@ -3,6 +3,7 @@ import bgImage from '../../images/img/banner.jpg'
 
 const SubHeader = ({title, subtitle}) => {
     const sectionStyle = {
+        zIndex:-1,
         background: `url(${bgImage}) no-repeat 50% 50%`,
         backgroundSize: 'cover',
         position: 'relative',
