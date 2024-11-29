@@ -28,7 +28,7 @@ const HeaderNav = ({ open, setOpen, isLoggedIn, data, avatar, content }) => {
                     <div>
                         <Popover content={content}>
                             <div className='profileImage'>
-                                <img src={data?.img ? data?.img : avatar} alt="" className="profileImage shadow img-fluid" />
+                                <img src={data?.img ? data?.img : avatar} alt="" className="profileImage img-fluid" />
                             </div>
                         </Popover>
                     </div>

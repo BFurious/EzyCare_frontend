@@ -152,10 +152,10 @@ const SignUp = ({ setSignUp }) => {
                 <span className="fIcon"><FaEnvelope /></span>
                 <input placeholder="Email" name="email" type="email" onChange={(e) => hanldeOnChange(e)} value={user.email} />
             </div>
-            <div className="input-field" style={{"gridTemplateColumns": "15% 70% 15%"}}>
+            <div className="input-field" style={{ "gridTemplateColumns": "15% 70% 15%" }}>
                 <span className="fIcon"><FaLock /></span>
-                <input type={ !showPassword ? "password" : "text"} name="password" placeholder="password" onChange={(e) => hanldeOnChange(e)} value={user.password} />
-                {showPassword && <span className="fIcon" onClick={(e) => handleShowPassword()}><FaRegEyeSlash /></span>}
+                <input type={!showPassword ? "password" : "text"} name="password" placeholder="password" onChange={(e) => hanldeOnChange(e)} value={user.password} />
+                {showPassword && <span className="fIcon" onClick={(e) => handleShowPassword()}><FaRegEyeSlash style="" /></span>}
                 {!showPassword && <span className="fIcon" onClick={(e) => handleShowPassword()}><FaRegEye /></span>
                 }
             </div>
@@ -185,22 +185,22 @@ const SignUp = ({ setSignUp }) => {
             <div className="password-validatity mx-auto">
 
                 <div style={emailError.emailError ? { color: "green" } : { color: "red" }}>
-                    <p>{passwordValidation.numeric ? <FaCheck /> : <FaTimes />}
+                    <p>{passwordValidation.emailError ? <FaCheck /> : <FaTimes />}
                         <span className="ms-2">Must Have Valid Email.</span></p>
                 </div>
 
                 <div style={passwordValidation.carLength ? { color: "green" } : { color: "red" }}>
-                    <p>{passwordValidation.numeric ? <FaCheck /> : <FaTimes />}
+                    <p>{passwordValidation.carLength ? <FaCheck /> : <FaTimes />}
                         <span className="ms-2">Password Must Have atlast 8 character.</span></p>
                 </div>
 
                 <div style={passwordValidation.specailChar ? { color: "green" } : { color: "red" }}>
-                    <p>{passwordValidation.numeric ? <FaCheck /> : <FaTimes />}
-                        <span className="ms-2">Password Must Have a special cracter.</span></p>
+                    <p>{passwordValidation.specailChar ? <FaCheck /> : <FaTimes />}
+                        <span className="ms-2">Password Must Have a special character.</span></p>
                 </div>
 
                 <div style={passwordValidation.upperLowerCase ? { color: "green" } : { color: "red" }}>
-                    <p>{passwordValidation.numeric ? <FaCheck /> : <FaTimes />}
+                    <p>{passwordValidation.upperLowerCase ? <FaCheck /> : <FaTimes />}
                         <span className="ms-2">Password Must Have uppercase and lower case.</span></p>
                 </div>
 

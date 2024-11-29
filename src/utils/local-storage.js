@@ -1,5 +1,7 @@
-export const setUserInfo = ({accessToken}) =>{
-    return setLocalStorage('accessToken',accessToken)
+import { authKey } from '../constant/storageKey';
+
+export const setUserInfo = ({ accessToken }) => {
+    return setLocalStorage(authKey, accessToken)
 }
 
 export const setLocalStorage = (key, token) => {

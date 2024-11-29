@@ -30,11 +30,10 @@ const Header = () => {
         // lastScrollRef.current = currentScroll;
     }
     useEffect(() => {
+        authChecked && setIsLogged(true)
         window.addEventListener('scroll', handleScroll);
         return (() => window.removeEventListener('scroll', handleScroll));
-    }, [])
-
-    useEffect(() => { authChecked && setIsLogged(true) }, [authChecked]);
+    }, [authChecked]);
 
     const hanldeSignOut = () => {
         loggedOut();
