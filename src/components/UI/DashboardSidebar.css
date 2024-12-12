@@ -14,21 +14,22 @@
 .dashboard-menu ul li {
 	line-height: inherit;
 }
+
 .dashboard-menu > ul > li {
-	border-bottom:1px solid #dadada;
+    border-bottom:1px solid #dadada;
 	position: relative;
 }
 .dashboard-menu > ul > li:last-child {
-	border-bottom: 0;
+    border-bottom: 0;
 }
 .dashboard-menu ul li a span,
 .dashboard-menu ul li a i {
-	display: inline-block;
+    display: inline-block;
 	vertical-align: middle;
 }
 .dashboard-menu > ul > li > a {
-	color: #757575;
-	display: block;
+    color: #757575;
+    display: flex;
 	padding: 16px 20px;
     transition: 0.2s ease-in;
 }

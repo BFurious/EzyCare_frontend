@@ -35,7 +35,7 @@ const SignUp = ({ setSignUp }) => {
         upperLowerCase: false,
         numeric: false
     })
-
+    const containerStyles = "flex flex-row items-center content-center";
     const handleSignUpSuccess = () => {
         setLoading(false);
         setUser(formField)
@@ -182,30 +182,30 @@ const SignUp = ({ setSignUp }) => {
                 {loading ? <Spinner animation="border" variant="info" /> : "Sign Up"}
             </button>
 
-            <div className="password-validatity mx-auto">
+            <div className="password-validatity mx-auto ">
 
                 <div style={emailError.emailError ? { color: "green" } : { color: "red" }}>
-                    <p>{passwordValidation.emailError ? <FaCheck /> : <FaTimes />}
+                    <p className = {containerStyles} >{emailError.emailError ? <FaCheck /> : <FaTimes />}
                         <span className="ms-2">Must Have Valid Email.</span></p>
                 </div>
 
                 <div style={passwordValidation.carLength ? { color: "green" } : { color: "red" }}>
-                    <p>{passwordValidation.carLength ? <FaCheck /> : <FaTimes />}
+                    <p className = {containerStyles} >{passwordValidation.carLength ? <FaCheck /> : <FaTimes />}
                         <span className="ms-2">Password Must Have atlast 8 character.</span></p>
                 </div>
 
                 <div style={passwordValidation.specailChar ? { color: "green" } : { color: "red" }}>
-                    <p>{passwordValidation.specailChar ? <FaCheck /> : <FaTimes />}
+                    <p className = {containerStyles} >{passwordValidation.specailChar ? <FaCheck /> : <FaTimes />}
                         <span className="ms-2">Password Must Have a special character.</span></p>
                 </div>
 
                 <div style={passwordValidation.upperLowerCase ? { color: "green" } : { color: "red" }}>
-                    <p>{passwordValidation.upperLowerCase ? <FaCheck /> : <FaTimes />}
+                    <p className = {containerStyles} >{passwordValidation.upperLowerCase ? <FaCheck /> : <FaTimes />}
                         <span className="ms-2">Password Must Have uppercase and lower case.</span></p>
                 </div>
 
                 <div style={passwordValidation.numeric ? { color: "green" } : { color: "red" }}>
-                    <p>{passwordValidation.numeric ? <FaCheck /> : <FaTimes />}
+                    <p className = {containerStyles} >{passwordValidation.numeric ? <FaCheck /> : <FaTimes />}
                         <span className="ms-2">Password Must Have Number.</span></p>
                 </div>
             </div>

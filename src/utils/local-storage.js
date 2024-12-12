@@ -1,9 +1,3 @@
-import { authKey } from '../constant/storageKey';
-
-export const setUserInfo = ({ accessToken }) => {
-    return setLocalStorage(authKey, accessToken)
-}
-
 export const setLocalStorage = (key, token) => {
     if (!key || typeof window === 'undefined') {
         return ''

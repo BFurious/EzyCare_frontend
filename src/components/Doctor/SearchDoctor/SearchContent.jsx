@@ -6,9 +6,12 @@ import { Tag } from 'antd';
 import './index.css';
 import { FaLocationArrow, FaRegThumbsUp, FaDollarSign, FaComment } from "react-icons/fa";
 import { truncate } from '../../../utils/truncate';
+import { useRole } from '../../../service/RoleCheck';
+import { Roles } from '../../../constant/role';
 
 const SearchContent = ({ data }) => {
     const services = data?.services?.split(',')
+    const { role } = useRole();
     return (
         <div className="mb-4 rounded" style={{ background: '#f3f3f3' }}>
             <div className='d-flex p-3 justify-content-between'>
@@ -24,7 +27,7 @@ const SearchContent = ({ data }) => {
                         <div className='d-flex align-items-center'>
                             <div>
                                 <StarRatings
-                                    rating={5}
+                                    rating={4.2}
                                     starRatedColor="#f4c150"
                                     numberOfStars={5}
                                     name='rating'
@@ -70,8 +73,10 @@ const SearchContent = ({ data }) => {
                         </ul>
                     </div>
                     <div className="clinic-booking">
-                        <Link to={`/doctors/profile/${data?.id}`} className="view-pro-btn">View Profile</Link>
-                        <Link to={`/booking/${data?.id}`} className="apt-btn">Book Appointment</Link>
+                        
+                        {   !role.includes([Roles.DOCTOR]) &&
+                            <Link to={`/booking/${data?.id}`} className="apt-btn">Book Appointment</Link>
+                        }
                     </div>
                 </div>
             </div>

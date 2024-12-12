@@ -1,4 +1,4 @@
-import { setUserInfo } from "../../utils/local-storage";
+import { SetUserInfo } from "../../service/auth.service";
 import { baseApi } from "./baseApi"
 
 const AUTH_URL = '/auth'
@@ -14,7 +14,7 @@ export const authApi = baseApi.injectEndpoints({
             async onQueryStarted(arg, { queryFulfilled, dispatch }) {
                 try {
                     const result = (await queryFulfilled).data;
-                    setUserInfo({ accessToken: result.accessToken });
+                    await SetUserInfo({ accessToken: result.accessToken, role: result.user.role });
                 } catch (error) {
                 }
             },
