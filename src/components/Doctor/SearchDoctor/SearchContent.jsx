@@ -6,7 +6,7 @@ import { Tag } from 'antd';
 import './index.css';
 import { FaLocationArrow, FaRegThumbsUp, FaDollarSign, FaComment } from "react-icons/fa";
 import { truncate } from '../../../utils/truncate';
-import { useRole } from '../../../service/RoleCheck';
+import { useRole } from '../../Login/RoleCheck';
 import { Roles } from '../../../constant/role';
 
 const SearchContent = ({ data }) => {
@@ -17,7 +17,7 @@ const SearchContent = ({ data }) => {
             <div className='d-flex p-3 justify-content-between'>
                 <div className='d-flex gap-3'>
                     <div className='doc-img-fluid d-flex align-items-center'>
-                        { data?.img && <img src={data?.img} className="" alt="User Image" />}
+                        {data?.img && <img src={data?.img} className="" alt="User Image" />}
                     </div>
                     <div className="doc-info">
                         <h5 className='mb-0'><Link to={`/doctors/profile/${data?.id}`}>Dr. {data?.firstName + ' ' + data?.lastName}</Link></h5>
@@ -73,8 +73,8 @@ const SearchContent = ({ data }) => {
                         </ul>
                     </div>
                     <div className="clinic-booking">
-                        
-                        {   !role.includes([Roles.DOCTOR]) &&
+
+                        {!role.includes([Roles.DOCTOR]) &&
                             <Link to={`/booking/${data?.id}`} className="apt-btn">Book Appointment</Link>
                         }
                     </div>

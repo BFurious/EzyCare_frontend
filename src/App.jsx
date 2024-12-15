@@ -45,7 +45,7 @@ import PrivateOutlet from './components/Shared/PrivateOutlet';
 import NotFound from './components/UI/NotFound';
 import RefundPolicy from './components/About/RefundPolicy';
 import PrivacyPolicy from './components/About/PrivacyPolicy';
-import { RoleProvider } from './service/RoleCheck';
+import { RoleProvider } from './components/Login/RoleCheck';
 import { ProtectedRoute } from './components/Shared/ProtectedRoute';
 import { Roles } from './constant/role';
 
@@ -82,9 +82,9 @@ function App() {
           <Route path='/privacy' element={<PrivacyPolicy />} />
           <Route path='/refund' element={<RefundPolicy />} />
           <Route path='/reset-password/:userId/:uniqueString' element={<ForgotPassword />} />
-          <Route path='/appointment' element={<ProtectedRoute allowedRoles = { [Roles.PATIENT, Roles.ADMIN] }> <AppointmentPage /></ProtectedRoute> } />
-          <Route path='/track-appointment' element={<ProtectedRoute allowedRoles = { [Roles.PATIENT, Roles.ADMIN] }> <TrackAppointment /></ProtectedRoute>} />
-          <Route path='/doctors' element={ <ProtectedRoute allowedRoles = { [Roles.PATIENT, Roles.ADMIN] }> <SearchDoctor /> </ProtectedRoute>} />
+          <Route path='/appointment' element={<ProtectedRoute allowedRoles={[Roles.PATIENT, Roles.ADMIN]}> <AppointmentPage /></ProtectedRoute>} />
+          <Route path='/track-appointment' element={<ProtectedRoute allowedRoles={[Roles.PATIENT, Roles.ADMIN]}> <TrackAppointment /></ProtectedRoute>} />
+          <Route path='/doctors' element={<ProtectedRoute allowedRoles={[Roles.PATIENT, Roles.ADMIN]}> <SearchDoctor /> </ProtectedRoute>} />
           <Route path='/doctors/profile/:id' element={<DoctorProfile />} />
           <Route path='/dashboard/blogs/:id' element={<BlogsEdit />} />
           <Route path='/dashboard/blogs/create' element={<AddBlog />} />

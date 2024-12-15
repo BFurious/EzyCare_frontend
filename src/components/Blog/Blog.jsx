@@ -11,7 +11,10 @@ import { truncate } from '../../utils/truncate';
 import { FaRegUser, FaBusinessTime } from "react-icons/fa";
 import moment from 'moment';
 
+
+
 const Blog = () => {
+
     const query = {};
     const [size, setSize] = useState(10);
     const [searchTerm, setSearchTerm] = useState("");
@@ -39,7 +42,7 @@ const Blog = () => {
                         <div className="card shadow text-center border-0 rounded-bottom">
 
                             <div className="flex-column p-0 border-0 d-flex justify-content-center align-items-center" style={{ height: '11rem', overflow: 'hidden' }}>
-                                <img src={item?.img} alt="blog Image" width={300} height={300} className="w-100 h-100 rounded-top image-hover" style={{objectFit:'contain'}}/>
+                                <img src={item?.img} alt="blog Image" width={300} height={300} className="w-100 h-100 rounded-top image-hover" style={{ objectFit: 'contain' }} />
                             </div>
                             <div className="card-body p-0">
                                 <div className="p-2">
@@ -49,7 +52,7 @@ const Blog = () => {
                                     <div className="d-flex text-start gap-2">
                                         <div className="d-flex gap-1 text-muted align-items-center justify-content-center">
                                             <FaRegUser className='form-text' />
-                                            <span className="form-text">{item?.user.firstName + ' ' + item?.user.firstName }</span>
+                                            <span className="form-text">{item?.user.firstName + ' ' + item?.user.firstName}</span>
                                         </div>
                                         <div className="d-flex gap-1 text-muted align-items-center justify-content-center">
                                             <FaBusinessTime className='form-text' />

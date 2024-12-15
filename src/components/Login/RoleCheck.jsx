@@ -1,26 +1,26 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import { ROLE_KEY } from '../constant/storageKey';
-import { getFromLocalStorage, setLocalStorage } from '../utils/local-storage';
+import { ROLE_KEY } from '../../constant/storageKey';
+import { getFromLocalStorage, setLocalStorage } from '../../utils/local-storage';
 
 const RoleContext = createContext();
 
 export const RoleProvider = ({ children }) => {
-    const [role, setRole] = useState(() => {
-        // Get initial role from localStorage if available
+    const [userRole, setRole] = useState(() => {
+        // Get initial userRole from localStorage if available
         return getFromLocalStorage(ROLE_KEY) || "patient";
     });
 
     useEffect(() => {
-        const storageRole = localStorage.getItem(ROLE_KEY);
-        if (storageRole) setRole(storageRole);
-        if (!role) {
+        if (userRole) {
+            localStorage.setItem(ROLE_KEY, userRole);
+        } else {
             localStorage.removeItem(ROLE_KEY);
         }
 
-    }, [role]);
+    }, [userRole]);
 
     return (
-        <RoleContext.Provider value={{ role, setRole }}>
+        <RoleContext.Provider value={{ setRole, userRole }}>
             {children}
         </RoleContext.Provider>
     );

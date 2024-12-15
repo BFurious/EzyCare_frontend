@@ -9,6 +9,8 @@ import { Button, message } from 'antd';
 import { loggedOut } from '../../../service/auth.service';
 import HeaderNav from './HeaderNav';
 import ChatAssistant from '../Assistant/chatAssistant';
+import { useRole } from '../../Login/RoleCheck'
+import { notAllowdedDoctor } from '../../../constant/role';
 
 const Header = () => {
     const navigate = useNavigate();
@@ -17,7 +19,7 @@ const Header = () => {
     const [show, setShow] = useState(true);
     const [open, setOpen] = useState(false);
     const [chatAssistantActive, setChatAssistantActive] = useState(false);
-
+    const { userRole, setRole } = useRole();
     // const lastScrollRef = useRef(0);
     const handleScroll = () => {
         const currentScroll = window.scrollY;
@@ -36,10 +38,10 @@ const Header = () => {
     }, [authChecked]);
 
     const hanldeSignOut = () => {
-        loggedOut();
+        loggedOut(setRole);
         message.success("Successfully Logged Out");
         setIsLogged(false);
-        navigate('/');
+        navigate('/login');
     }
 
     const content = (
@@ -54,7 +56,7 @@ const Header = () => {
                 </Link>
             </div>
             <Button className='bg-gradient-to-r from-teal-400 to-blue-500 hover:from-pink-500 hover:to-orange-500 w-100 text-white font-bold rounded py-1' onClick={hanldeSignOut}>
-                Logged Out
+                Log Out
             </Button>
         </div >
     );
@@ -70,14 +72,18 @@ const Header = () => {
                         <img src={img} alt="" className="img-fluid" />
                     </Link>
                     <HeaderNav isLoggedIn={isLoggedIn} data={data}
-                        avatar={avatar} content={content} open={open} setOpen={setOpen} />
-                    <Link to={'/appointment'} className="bg-gradient-to-r from-teal-400 to-blue-500 hover:from-indigo-500 hover:via-purple-500 hover:to-pink-500 font-bold appointment-btn scrollto"><span className="d-none d-md-inline">Make an</span> Appointment</Link>
-                    <span
-                        className="bg-gradient-to-r from-teal-400 to-blue-500 hover:from-indigo-500 hover:via-purple-500 hover:to-pink-500 font-bold appointment-btn scrollto"
-                        style={{ display: `${chatAssistantActive ? "none" : "block"}` }}
-                        onClick={(e) => setChatAssistantActive(!chatAssistantActive)}>
-                        ChatAssistant
-                    </span>
+                        avatar={avatar} content={content} open={open} setOpen={setOpen} userRole={userRole} />
+
+                    {!notAllowdedDoctor.includes(userRole) && <Link to={'/appointment'} className="bg-gradient-to-r from-teal-400 to-blue-500 hover:from-indigo-500 hover:via-purple-500 hover:to-pink-500 font-bold appointment-btn scrollto"><span className="d-none d-md-inline">Make an</span> Appointment</Link>
+                    }
+                    {!notAllowdedDoctor.includes(userRole) &&
+                        <span
+                            className="bg-gradient-to-r from-teal-400 to-blue-500 hover:from-indigo-500 hover:via-purple-500 hover:to-pink-500 font-bold appointment-btn scrollto"
+                            style={{ display: `${chatAssistantActive ? "none" : "block"}` }}
+                            onClick={(e) => setChatAssistantActive(!chatAssistantActive)}>
+                            ChatAssistant
+                        </span>
+                    }
                 </div>
             </header>
             <div className={`chat-container ${chatAssistantActive ? 'active p-[10px] border-2 border-blue-200 border-solid' : 'notActive'}`}>

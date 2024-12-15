@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FaEnvelope, FaLock, FaRegEyeSlash, FaRegEye  } from 'react-icons/fa';
+import { FaEnvelope, FaLock, FaRegEyeSlash, FaRegEye } from 'react-icons/fa';
 import SocialSignUp from './SocialSignUp';
 import { useForm } from "react-hook-form";
 import Spinner from 'react-bootstrap/Spinner';
@@ -8,8 +8,10 @@ import { Toast } from 'react-bootstrap';
 import { useResetPasswordMutation, useUserLoginMutation } from '../../redux/api/authApi';
 import { message } from 'antd';
 import { useMessageEffect } from '../../utils/messageSideEffect';
+import { useRole } from './RoleCheck'
 
 const SignIn = ({ handleResponse }) => {
+    const { setRole } = useRole();
     const [showForgotPassword, setShowForgotPassword] = useState(false);
     const [infoError, setInfoError] = useState('');
     const [show, setShow] = useState(true);
@@ -25,7 +27,7 @@ const SignIn = ({ handleResponse }) => {
     }, 10000);
 
     const onSubmit = async (event) => {
-        userLogin({ ...event })
+        userLogin({ ...event, setRole })
     }
 
     const onHandleForgotPassword = async (e) => {
@@ -95,9 +97,9 @@ const SignIn = ({ handleResponse }) => {
                             <input {...register("email", { required: true })} placeholder="Enter Your Email" type="email" />
                         </div>
                         {errors.email && <span className="text-danger">This field is required</span>}
-                        <div className="input-field" style={{"gridTemplateColumns": "15% 70% 15%"}}>
+                        <div className="input-field" style={{ "gridTemplateColumns": "15% 70% 15%" }}>
                             <span className="fIcon"><FaLock /></span>
-                            <input {...register("password", { required: true })} type={!showPassword ? "password":"text"} placeholder="Enter Your Password" />
+                            <input {...register("password", { required: true })} type={!showPassword ? "password" : "text"} placeholder="Enter Your Password" />
                             {showPassword && <span className="fIcon" onClick={(e) => handleShowPassword()}><FaRegEyeSlash /></span>}
                             {!showPassword && <span className="fIcon" onClick={(e) => handleShowPassword()}><FaRegEye /></span>
                             }

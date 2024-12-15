@@ -1,5 +1,6 @@
 import { SetUserInfo } from "../../service/auth.service";
 import { baseApi } from "./baseApi"
+import { useRole } from "../../components/Login/RoleCheck"
 
 const AUTH_URL = '/auth'
 
@@ -11,10 +12,14 @@ export const authApi = baseApi.injectEndpoints({
                 method: 'POST',
                 data: loginData,
             }),
-            async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+            async onQueryStarted(loginData, { queryFulfilled, dispatch }) {
                 try {
                     const result = (await queryFulfilled).data;
-                    await SetUserInfo({ accessToken: result.accessToken, role: result.user.role });
+                    console.log(loginData.userRole);
+                    loginData.setRole(result.user.role);
+                    // toChange
+                    await SetUserInfo({ accessToken: result.accessToken });
+
                 } catch (error) {
                 }
             },
@@ -50,10 +55,10 @@ export const authApi = baseApi.injectEndpoints({
     })
 })
 
-export const { 
-    useUserLoginMutation, 
-    useDoctorSignUpMutation, 
+export const {
+    useUserLoginMutation,
+    useDoctorSignUpMutation,
     usePatientSignUpMutation,
-    useResetPasswordMutation, 
+    useResetPasswordMutation,
     useResetConfirmMutation
 } = authApi

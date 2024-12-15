@@ -1,14 +1,10 @@
+import { Roles } from '../constant/role';
 import { AUTH_KEY, ROLE_KEY } from '../constant/storageKey';
 import { decodeToken } from '../utils/jwt';
 import { getFromLocalStorage, setLocalStorage } from '../utils/local-storage';
-import { useRole } from './RoleCheck';
 
-export const SetUserInfo = ({ accessToken, role }) => {
-    // let { setRole } = useRole();
-    // setRole(role);
-    setLocalStorage(AUTH_KEY, accessToken);
-    setLocalStorage(ROLE_KEY, role);
-    return ;
+export const SetUserInfo = ({ accessToken }) => {
+    return setLocalStorage(AUTH_KEY, accessToken);
 }
 
 export const getUserInfo = () => {
@@ -24,7 +20,7 @@ export const isLoggedIn = () => {
     const authToken = getFromLocalStorage(AUTH_KEY);
     return !!authToken;
 }
-export const loggedOut = () => {
-    localStorage.removeItem(ROLE_KEY)   
+export const loggedOut = (setRole) => {
+    setRole(Roles.PATIENT);
     return localStorage.removeItem(AUTH_KEY)
 }

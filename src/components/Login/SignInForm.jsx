@@ -1,14 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import log from '../../images/doc/info.svg';
 import register from '../../images/doc/register.svg';
 import SignIn from './SignIn';
 import './SignInForm.css';
 import SignUp from './SignUp';
+import { message } from 'antd';
+import { isLoggedIn } from '../../service/auth.service';
+import { LoadingScreen } from '../Shared/LoadingScreen';
 
 const SignInForm = () => {
     const [isSignUp, setSignUp] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (isLoggedIn()) {
+            navigate('/');
+            message.success("Already Logged In");
+        } else {
+            setLoading(false);
+        }
+    }, [navigate])
+
+    if (loading) {
+        return <LoadingScreen />
+    }
+
     return (
         <div className={`${isSignUp ? "signin-signup-container sign-up-mode" : "signin-signup-container"}`}>
             <Link to="/">
