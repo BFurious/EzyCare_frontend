@@ -1,6 +1,5 @@
 import { SetUserInfo } from "../../service/auth.service";
 import { baseApi } from "./baseApi"
-import { useRole } from "../../components/Login/RoleCheck"
 
 const AUTH_URL = '/auth'
 
@@ -15,7 +14,6 @@ export const authApi = baseApi.injectEndpoints({
             async onQueryStarted(loginData, { queryFulfilled, dispatch }) {
                 try {
                     const result = (await queryFulfilled).data;
-                    console.log(loginData.userRole);
                     loginData.setRole(result.user.role);
                     // toChange
                     await SetUserInfo({ accessToken: result.accessToken });

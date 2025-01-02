@@ -115,8 +115,8 @@ const SignUp = ({ setSignUp }) => {
         }
         if (isPassValid) {
             const newPass = { ...user };
-            newPass[name] = value
-            setUser(newPass)
+            newPass[name] = value;
+            setUser(newPass);
         }
     }
 

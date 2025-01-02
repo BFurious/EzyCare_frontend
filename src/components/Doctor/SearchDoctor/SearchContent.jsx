@@ -11,7 +11,7 @@ import { Roles } from '../../../constant/role';
 
 const SearchContent = ({ data }) => {
     const services = data?.services?.split(',')
-    const { role } = useRole();
+    const { userRole } = useRole();
     return (
         <div className="mb-4 rounded" style={{ background: '#f3f3f3' }}>
             <div className='d-flex p-3 justify-content-between'>
@@ -74,7 +74,7 @@ const SearchContent = ({ data }) => {
                     </div>
                     <div className="clinic-booking">
 
-                        {!role.includes([Roles.DOCTOR]) &&
+                        {!userRole.includes([Roles.DOCTOR]) &&
                             <Link to={`/booking/${data?.id}`} className="apt-btn">Book Appointment</Link>
                         }
                     </div>
