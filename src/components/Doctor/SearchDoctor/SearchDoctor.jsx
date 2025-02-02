@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import Footer from '../../Shared/Footer/Footer';
 import SearchSidebar from './SearchSidebar';
 import SearchContent from './SearchContent';
@@ -16,7 +16,7 @@ const SearchDoctor = () => {
     const [sortBy, setSortBy] = useState("");
     const [sortOrder, setSortOrder] = useState("");
     const [searchTerm, setSearchTerm] = useState("");
-    const [sortByGender, setSorByGender] = useState("");
+    const [gender, setSorByGender] = useState("");
     const [specialist, setSpecialist] = useState("");
     const [priceRange, setPriceRange] = useState({});
 
@@ -25,7 +25,7 @@ const SearchDoctor = () => {
     query["sortBy"] = sortBy;
     query["sortOrder"] = sortOrder;
 
-    sortByGender !== '' && (query["gender"] = sortByGender);
+    gender !== '' && (query["gender"] = gender);
     specialist !== '' && (query["specialist"] = specialist);
 
     const priceDebounced = useDebounced({ searchQuery: priceRange, delay: 600 });
@@ -37,7 +37,7 @@ const SearchDoctor = () => {
         query["max"] = max;
     }
 
-    const resetFilter = () =>{
+    const resetFilter = () => {
         setPage(1);
         setSize(10);
         setSortOrder("");
@@ -50,8 +50,14 @@ const SearchDoctor = () => {
 
     if (!!debounced) { query.searchTerm = debounced }
 
-    const { data, isLoading, isError } = useGetDoctorsQuery({ ...query })
+    const memoizedQuery = useMemo(() => ({ ...query }), [query]);
+    const { data, isLoading, isError } = useGetDoctorsQuery(memoizedQuery)
     const doctorsData = data?.doctors;
+    const doctorsName = useMemo(() => {
+        return doctorsData?.map((data) => {
+            return (data.firstName + " " + data.lastName);
+        }) || [];
+    });
     const meta = data?.meta;
 
     //what to render
@@ -87,6 +93,9 @@ const SearchDoctor = () => {
                             setPriceRange={setPriceRange}
                             resetFilter={resetFilter}
                             query={query}
+                            specialist={specialist}
+                            gender={gender}
+                            nameSuggestions={doctorsName}
                         />
                         <div className="col-md-12 col-lg-8 col-xl-9">
                             {content}

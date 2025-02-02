@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Slider, Button, DatePicker, Radio } from 'antd';
-import { FaSearch, FaRedoAlt } from "react-icons/fa";
-import Search from 'antd/es/input/Search';
+import { FaRedoAlt } from "react-icons/fa";
+import {AutoComplete, Input} from 'antd';
 import { doctorSpecialistOptions } from '../../../constant/global';
 
-const SearchSidebar = ({ setSearchTerm, setSorByGender, setSpecialist, setPriceRange, resetFilter, query }) => {
+const SearchSidebar = ({ setSearchTerm, setSorByGender, setSpecialist, setPriceRange, resetFilter, query, specialist, gender, nameSuggestions }) => {
   const handleDateChange = (_date, _dateString) => { }
+  const [suggestions, setNameSuggestions] = useState([]);
+
   const options = [
     {
       label: 'Male',
@@ -31,16 +33,43 @@ const SearchSidebar = ({ setSearchTerm, setSorByGender, setSpecialist, setPriceR
     }
     setPriceRange(obj)
   }
-  const onSearch = (value) => {
-    setSearchTerm(value);
-  }
+
+  const onSearch = (searchText) => {
+    if (!searchText || !nameSuggestions || nameSuggestions.length == 0) {
+      setNameSuggestions([]);
+      return;
+    }
+
+    // Filter suggestions based on input text
+
+    const filteredOptions = nameSuggestions
+    .filter((name) => name.toLowerCase().includes(searchText.toLowerCase()))
+    .map((name) => ({ value: name }));
+    setNameSuggestions(filteredOptions);
+    setSearchTerm(searchText);
+  };
+  
+  const handleSuggestionSelect = (value) => {
+    setSearchTerm(value); // Update searchTerm with the selected suggestion
+    setNameSuggestions([]); // Optionally clear suggestions after selection
+  };
+
   return (
     <div className="col-md-12 col-lg-4 col-xl-3">
 
       <div className="p-3 rounded" style={{ background: '#f3f3f3' }}>
         <h5 className='text-center mb-3' style={{ color: '#05335c' }}>Doctor Filter</h5>
-        <div className="mb-3">
-          <Search placeholder="Search..." onSearch={onSearch} enterButton allowClear />
+        <div className="mb-3 realtive">
+          <AutoComplete
+            options={suggestions}
+            onSearch={onSearch}
+            onSelect={handleSuggestionSelect}
+            placeholder="Search..."
+            style={{width:'100%'}}
+
+          >
+            <Input.Search enterButton size='middle' allowClear />
+          </AutoComplete>
         </div>
 
         <div className='mb-3'>
@@ -55,7 +84,7 @@ const SearchSidebar = ({ setSearchTerm, setSorByGender, setSpecialist, setPriceR
         <div className='mb-3'>
           <h6 style={{ color: '#05335c' }}>Gender</h6>
           <div className='d-flex flex-column'>
-            <Radio.Group options={options} onChange={onSelectGender} />
+            <Radio.Group options={options} onChange={onSelectGender} value={gender} />
           </div>
         </div>
 
@@ -67,13 +96,11 @@ const SearchSidebar = ({ setSearchTerm, setSorByGender, setSpecialist, setPriceR
         <div className='mb-3'>
           <h6 style={{ color: '#05335c' }}>Select Specialist</h6>
           <div className='d-flex flex-column'>
-            <Radio.Group options={doctorSpecialistOptions} onChange={onSelectSepcialist} />
+            <Radio.Group options={doctorSpecialistOptions} onChange={onSelectSepcialist} value={specialist} />
           </div>
         </div>
-
-        <Button className='w-100 mt-4 mb-2' type="primary" style={{backgroundColor:'#1977cc'}} shape="round" icon={<FaSearch />} size="sm">Search</Button>
         {
-          Object.keys(query).length > 4 && <Button className='w-100 mt-4 mb-2' style={{backgroundColor:'#1977cc'}} onClick={resetFilter} type="primary" shape="round" icon={<FaRedoAlt />} size="sm">Reset</Button>
+          Object.keys(query).length > 4 && <Button className='w-100 mt-4 mb-2' style={{ backgroundColor: '#1977cc' }} onClick={resetFilter} type="primary" shape="round" icon={<FaRedoAlt />} size="sm">Reset</Button>
         }
       </div>
 
