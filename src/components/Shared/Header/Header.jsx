@@ -74,11 +74,11 @@ const Header = () => {
                     <HeaderNav isLoggedIn={isLoggedIn} data={data}
                         avatar={avatar} content={content} open={open} setOpen={setOpen} userRole={userRole} />
 
-                    {!notAllowdedDoctor.includes(userRole) && <Link to={'/appointment'} className="bg-gradient-to-r from-teal-400 to-blue-500 hover:from-indigo-500 hover:via-purple-500 hover:to-pink-500 font-bold appointment-btn scrollto"><span className="d-none d-md-inline">Make an</span> Appointment</Link>
+                    {!notAllowdedDoctor.includes(userRole) && <Link to={'/appointment'} className="blue-button font-bold appointment-btn scrollto"><span className="d-none d-md-inline">Make an</span> Appointment</Link>
                     }
                     {!notAllowdedDoctor.includes(userRole) &&
                         <span
-                            className="bg-gradient-to-r from-teal-400 to-blue-500 hover:from-indigo-500 hover:via-purple-500 hover:to-pink-500 font-bold appointment-btn scrollto"
+                            className="blue-button font-bold appointment-btn scrollto"
                             style={{ display: `${chatAssistantActive ? "none" : "block"}` }}
                             onClick={(e) => setChatAssistantActive(!chatAssistantActive)}>
                             ChatAssistant

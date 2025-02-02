@@ -77,7 +77,10 @@ const PersonalInformation = ({ handleChange, selectValue, setCurrentPatientData,
                             onFocus={handleFocus}
                             onBlur={handleBlur}
                             placeholder={`${isFocus.lastName ? "" : "Last Name"}`}
-                            onChange={(e) => handleChange(e)} name='lastName' value={lastName && lastName} className="form-control" type="text" />
+                            onChange={(e) => handleChange(e)} 
+                            name='lastName' 
+                            value={lastName && lastName} 
+                            className="form-control" type="text" />
                     </div>
                 </div>
                 <div className="col-md-6 col-sm-12">
@@ -87,7 +90,9 @@ const PersonalInformation = ({ handleChange, selectValue, setCurrentPatientData,
                             onFocus={handleFocus}
                             onBlur={handleBlur}
                             placeholder={`${isFocus.email ? "" : "Email"}`}
-                            onChange={(e) => handleChange(e)} name='email' value={email && email} className="form-control" type="email" />
+                            onChange={(e) => handleChange(e)} name='email' 
+                            value={email && email} 
+                            className="form-control" type="email" />
                     </div>
                 </div>
                 <div className="col-md-6 col-sm-12">
@@ -97,7 +102,10 @@ const PersonalInformation = ({ handleChange, selectValue, setCurrentPatientData,
                             onFocus={handleFocus}
                             onBlur={handleBlur}
                             placeholder={`${isFocus.phone ? "" : "Phone"}`}
-                            onChange={(e) => handleChange(e)} name='phone' value={phone && phone} className="form-control" type="text" />
+                            onChange={(e) => handleChange(e)} 
+                            name='phone' 
+                            value={phone && phone} 
+                            className="form-control" type="text" />
                     </div>
                 </div>
                 <div className="col-md-6 col-sm-12">
@@ -107,7 +115,10 @@ const PersonalInformation = ({ handleChange, selectValue, setCurrentPatientData,
                             onFocus={handleFocus}
                             onBlur={handleBlur}
                             placeholder={`${isFocus.reasonForVisit ? "" : "Reason For Visit"}`}
-                            onChange={(e) => handleChange(e)} name='reasonForVisit' value={reasonForVisit && reasonForVisit} className="form-control" type="text" />
+                            onChange={(e) => handleChange(e)} 
+                            name='reasonForVisit' 
+                            value={reasonForVisit && reasonForVisit} 
+                            className="form-control" type="text" />
                     </div>
                 </div>
                 <div className="col-md-6 col-sm-12">
@@ -117,7 +128,10 @@ const PersonalInformation = ({ handleChange, selectValue, setCurrentPatientData,
                             onFocus={handleFocus}
                             onBlur={handleBlur}
                             placeholder={`${isFocus.description ? "" : "Description"}`}
-                            onChange={(e) => handleChange(e)} name='description' value={description && description} className="form-control" type="text" />
+                            onChange={(e) => handleChange(e)} 
+                            name='description' 
+                            value={description && description} 
+                            className="form-control" type="text" />
                     </div>
                 </div>
                 <div className="col-md-6 col-sm-12">
@@ -127,7 +141,10 @@ const PersonalInformation = ({ handleChange, selectValue, setCurrentPatientData,
                             onFocus={handleFocus}
                             onBlur={handleBlur}
                             placeholder={`${isFocus.address ? "" : "Address"}`}
-                            onChange={(e) => handleChange(e)} name='address' value={address && address} className="form-control" type="text" />
+                            onChange={(e) => handleChange(e)} 
+                            name='address' 
+                            value={address && address} 
+                            className="form-control" type="text" />
                     </div>
                 </div>
             </div>

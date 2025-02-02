@@ -1,7 +1,6 @@
 import './index.css';
 import { appointStatusDsc } from "../../constant/appointmentStatus";
 const AppointmentTimeLine = ({data}) => {
- 
   return (
     <>
       <div className="container">
@@ -11,7 +10,7 @@ const AppointmentTimeLine = ({data}) => {
               <ul className="timeline timeline-horizontal">
 
                 <li className="timeline-item mb-5 position-relative">
-                  <div className="timeline-badge bg-white"></div>
+                  <div className={`timeline-badge ${data?.paymentStatus!= "paid" ? "bg-white" : "bg-green-500"}`}></div>
                   <div className="timeline-panel position-relative  rounded p-2" style={{maxWidth:'220px'}}>
                     <div>
                       <h6>Payment - {data?.paymentStatus}</h6>
@@ -21,7 +20,7 @@ const AppointmentTimeLine = ({data}) => {
                 </li>
 
                 <li className="timeline-item mb-5 position-relative">
-                  <div className="timeline-badge bg-white"></div>
+                  <div className={`timeline-badge ${data?.status!= "pending" ? "bg-green-500" : "bg-white"}`}></div>
                   <div className="timeline-panel position-relative rounded p-2" style={{maxWidth:'220px'}}>
                     <div>
                       <h6>Appointment - {data?.status}</h6>
@@ -31,7 +30,7 @@ const AppointmentTimeLine = ({data}) => {
                 </li>
 
                 <li className="timeline-item mb-5 position-relative">
-                  <div className="timeline-badge bg-white"></div>
+                  <div className={`timeline-badge ${!data?.followUp ? "bg-white" : "bg-green-500"}`}></div>
                   <div className="timeline-panel position-relative  rounded p-2" style={{maxWidth:'220px'}}>
                     <div>
                       <h6>Follow-up Date - {data?.followUp ? data?.followUp : 'Not Scheduled Yet'}</h6>
@@ -41,7 +40,7 @@ const AppointmentTimeLine = ({data}) => {
                 </li>
 
                 <li className="timeline-item mb-5 position-relative">
-                  <div className="timeline-badge bg-white"></div>
+                  <div className={`timeline-badge ${data?.prescriptionStatus!= "issued" ? "bg-white" : "bg-green-500"}`}></div>
                   <div className="timeline-panel position-relative  rounded p-2" style={{maxWidth:'220px'}}>
                     <div>
                       <h6>Prescription - {data?.prescriptionStatus}</h6>

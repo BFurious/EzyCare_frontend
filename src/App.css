@@ -363,6 +363,7 @@ button {
     box-shadow: 0 0 20px #eee;
     border-radius: 10px;
     display: block;
+    cursor: pointer;
 }
 
 .grape-button:hover,
@@ -399,7 +400,7 @@ button {
 
 
 .blue-button {
-    background-image: linear-gradient(to right, #007bff 0%, rgb(168, 201, 248) 51%, #007bff 100%);
+    background-image: linear-gradient(45deg, #3b82f6, #2dd4bf, #3b82f6);
 }
 
 

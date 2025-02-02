@@ -16,7 +16,7 @@ const SelectDateAndTime = ({ content, handleDateChange, disabledDateTime, select
                     <DatePicker
                         format="YYYY-MM-DD HH:mm:ss"
                         disabledDate={disabledDateTime}
-                        open={true}
+                        defaultOpen = {true}
                         onChange={handleDateChange}
                     />
                 </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useCallback, useState } from 'react'
 import Footer from '../../Shared/Footer/Footer'
 import img from '../../../images/doc/doctor 3.jpg'
 import './index.css';
@@ -41,7 +41,7 @@ const DoctorBooking = () => {
     const [selectDay, setSelecDay] = useState('');
     const [selectTime, setSelectTime] = useState('');
     const [isCheck, setIsChecked] = useState(false);
-    const [patientId, setPatientId] = useState('');
+    const [patientId, setPatientId] = useState("");
     const [createAppointment, { data: appointmentData, isSuccess: createIsSuccess, isError: createIsError, error: createError, isLoading: createIsLoading }] = useCreateAppointmentMutation();
     const { doctorId } = useParams();
     const navigation = useNavigate();
@@ -57,11 +57,11 @@ const DoctorBooking = () => {
         setSelectValue((currentSelectValue) => {
           return {
             ...currentSelectValue, 
-            firstName: clearIt ? "" : data.firstName,
-            lastName: clearIt ? "" : data.lastName,
-            email: clearIt ? "" : data.email ,
-            address: clearIt ? "" : data.address,
-            phone: clearIt ? "" : data.mobile,
+            firstName: clearIt ? "" : loggedInUser?.firstName,
+            lastName: clearIt ? "" : loggedInUser?.lastName,
+            email: clearIt ? "" : loggedInUser?.email ,
+            address: clearIt ? "" : loggedInUser?.address,
+            phone: clearIt ? "" : loggedInUser?.mobile,
           }
         })
       }
@@ -70,6 +70,7 @@ const DoctorBooking = () => {
         const { firstName, lastName, email, phone, nameOnCard, cardNumber, expiredMonth, cardExpiredYear, cvv, reasonForVisit } = selectValue;
         const isInputEmpty = !firstName || !lastName || !email || !phone || !reasonForVisit;
         const isConfirmInputEmpty = !nameOnCard || !cardNumber || !expiredMonth || !cardExpiredYear || !cvv || !isCheck;
+        
         setIsDisable(isInputEmpty);
         setIsConfirmDisable(isConfirmInputEmpty);
     }, [selectValue, isCheck])
@@ -80,8 +81,11 @@ const DoctorBooking = () => {
         setSelecDay(moment(dateString).format('dddd').toLowerCase());
         refetch();
     }
-    const disabledDateTime = (current) => current && (current < moment().add(1, 'day').startOf('day') || current > moment().add(8, 'days').startOf("day"))
-    const handleSelectTime = (date) => { setSelectTime(date) }
+    const disabledDateTime = useCallback((current) => 
+        current && (current < moment().add(1, 'day').startOf('day') || current > moment().add(8, 'days').startOf("day")), 
+        []
+      );
+    const handleSelectTime = (date) => { setSelectTime(date) };
 
     const next = () => { setCurrent(current + 1) };
     const prev = () => { setCurrent(current - 1) };
@@ -132,7 +136,7 @@ const DoctorBooking = () => {
         },
         {
             title: 'Patient Information',
-            content: <PersonalInformation handleChange={handleChange} selectValue={selectValue} setCurrentPatientData= {setCurrentPatientData} patientId={data?.id} />
+            content: <PersonalInformation handleChange={handleChange} selectValue={selectValue} setCurrentPatientData= {setCurrentPatientData} patientId={loggedInUser?.id} />
         },
         {
             title: 'Payment',
@@ -163,7 +167,7 @@ const DoctorBooking = () => {
             scheduleDate: selectedDate,
             scheduleTime: selectTime,
             doctorId: doctorId,
-            patientId: role !== '' && role === 'patient' ? patientId : undefined,
+            patientId: role !== '' && role === 'patient' ? loggedInUser?.id : undefined,
         }
         obj.payment = {
             paymentType: selectValue.paymentType,

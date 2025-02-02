@@ -5,10 +5,9 @@ import { Input, message } from 'antd';
 import { useTrackAppointmentMutation } from '../../redux/api/appointmentApi';
 import TrackDetailPage from './TrackDetailPage';
 import { useEffect, useState } from 'react';
-import AvailableServiceContent from '../Home/AvailableFeatures/AvailableServiceContent';
 const { Search } = Input;
 
-const TrackAppointment = () => {
+const TrackAppointment = ({children}) => {
     const [trackAppointment, { data, isSuccess, isLoading, isError, error }] = useTrackAppointmentMutation();
     const [showInfo, setShowInfo] = useState(false);
 
@@ -60,11 +59,11 @@ const TrackAppointment = () => {
                                 </div>
 
                                 <section className="container" style={{ marginBottom: '8rem', marginTop: '5rem' }}>
-                                    <div className="flex" style={{ maxWidth: '900px' }}>
+                                    <div className="flex flex-column">
                                         <div className='mb-4 section-title text-center'>
-                                            <h5 className='text-uppercase'>Availabe Service</h5>
+                                            <h5 className='text-uppercase'>Available Service</h5>
                                         </div>
-                                        <AvailableServiceContent />
+                                        {children}
                                     </div>
                                 </section>
                             </div>

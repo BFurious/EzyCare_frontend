@@ -48,6 +48,7 @@ import PrivacyPolicy from './components/About/PrivacyPolicy';
 import { RoleProvider } from './components/Login/RoleCheck';
 import { ProtectedRoute } from './components/Shared/ProtectedRoute';
 import { Roles } from './constant/role';
+import AvailableServiceContent from './components/Home/AvailableFeatures/AvailableServiceContent';
 
 function App() {
   return (
@@ -83,7 +84,7 @@ function App() {
           <Route path='/refund' element={<RefundPolicy />} />
           <Route path='/reset-password/:userId/:uniqueString' element={<ForgotPassword />} />
           <Route path='/appointment' element={<ProtectedRoute allowedRoles={[Roles.PATIENT, Roles.ADMIN]}> <AppointmentPage /></ProtectedRoute>} />
-          <Route path='/track-appointment' element={<ProtectedRoute allowedRoles={[Roles.PATIENT, Roles.ADMIN]}> <TrackAppointment /></ProtectedRoute>} />
+          <Route path='/track-appointment' element={<ProtectedRoute allowedRoles={[Roles.PATIENT, Roles.ADMIN]}> <TrackAppointment> <AvailableServiceContent /> </TrackAppointment> </ProtectedRoute>} />
           <Route path='/doctors' element={<ProtectedRoute allowedRoles={[Roles.PATIENT, Roles.ADMIN]}> <SearchDoctor /> </ProtectedRoute>} />
           <Route path='/doctors/profile/:id' element={<DoctorProfile />} />
           <Route path='/dashboard/blogs/:id' element={<BlogsEdit />} />
