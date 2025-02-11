@@ -157,6 +157,21 @@ const DoctorBooking = () => {
         title: item.title,
     }))
 
+    const startAuthFlow = async ({ role }) => {
+        const oauth2Client = new google.auth.OAuth2(
+            process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID 
+        );
+
+        const url = oauth2Client.generateAuthUrl({
+            access_type: 'offline',
+            scope: ['https://www.googleapis.com/auth/calendar'],
+            prompt: 'consent',
+            state: JSON.stringify({ role })
+        });
+        
+        window.location.href = url;
+    };
+
     const handleConfirmSchedule = () => {
         const obj = {};
         obj.patientInfo = {
