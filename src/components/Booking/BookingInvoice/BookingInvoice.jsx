@@ -46,7 +46,7 @@ const BookingInvoice = () => {
                                     <strong className="customer-text">Invoice From</strong>
                                     <p className="invoice-details invoice-details-two">
                                         Dr. {data?.appointment?.doctor?.firstName ? `${data?.appointment?.doctor?.firstName} ${data?.appointment?.doctor?.lastName}`: ' Of EzyCare'} <br />
-                                        {data?.appointment?.doctor?.address ? data?.appointment?.doctor?.address : "Sylhet, Dhaka ,BD,3214"}, {data?.appointment?.doctor?.city && data?.appointment?.doctor?.city},<br />
+                                        {data?.appointment?.doctor?.address ? data?.appointment?.doctor?.address : "New Delhi, India"}, {data?.appointment?.doctor?.city && data?.appointment?.doctor?.city},<br />
                                         {data?.appointment?.doctor?.country && data?.appointment?.doctor?.country} <br />
                                     </p>
                                 </div>
