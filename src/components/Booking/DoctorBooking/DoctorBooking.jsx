@@ -35,7 +35,7 @@ const DoctorBooking = () => {
         cardExpiredYear: '',
         cvv: '',
     }
-    const {data:loggedInUser, role} = useAuthCheck();
+    const { data: loggedInUser, role } = useAuthCheck();
     const [current, setCurrent] = useState(0);
     const [selectedDate, setSelectedDate] = useState('');
     const [selectDay, setSelecDay] = useState('');
@@ -55,22 +55,22 @@ const DoctorBooking = () => {
     const handleChange = (e) => { setSelectValue({ ...selectValue, [e.target.name]: e.target.value }) }
     const setCurrentPatientData = (clearIt) => {
         setSelectValue((currentSelectValue) => {
-          return {
-            ...currentSelectValue, 
-            firstName: clearIt ? "" : loggedInUser?.firstName,
-            lastName: clearIt ? "" : loggedInUser?.lastName,
-            email: clearIt ? "" : loggedInUser?.email ,
-            address: clearIt ? "" : loggedInUser?.address,
-            phone: clearIt ? "" : loggedInUser?.mobile,
-          }
+            return {
+                ...currentSelectValue,
+                firstName: clearIt ? "" : loggedInUser?.firstName,
+                lastName: clearIt ? "" : loggedInUser?.lastName,
+                email: clearIt ? "" : loggedInUser?.email,
+                address: clearIt ? "" : loggedInUser?.address,
+                phone: clearIt ? "" : loggedInUser?.mobile,
+            }
         })
-      }
+    }
 
     useEffect(() => {
         const { firstName, lastName, email, phone, nameOnCard, cardNumber, expiredMonth, cardExpiredYear, cvv, reasonForVisit } = selectValue;
         const isInputEmpty = !firstName || !lastName || !email || !phone || !reasonForVisit;
         const isConfirmInputEmpty = !nameOnCard || !cardNumber || !expiredMonth || !cardExpiredYear || !cvv || !isCheck;
-        
+
         setIsDisable(isInputEmpty);
         setIsConfirmDisable(isConfirmInputEmpty);
     }, [selectValue, isCheck])
@@ -81,10 +81,10 @@ const DoctorBooking = () => {
         setSelecDay(moment(dateString).format('dddd').toLowerCase());
         refetch();
     }
-    const disabledDateTime = useCallback((current) => 
-        current && (current < moment().add(1, 'day').startOf('day') || current > moment().add(8, 'days').startOf("day")), 
+    const disabledDateTime = useCallback((current) =>
+        current && (current < moment().add(1, 'day').startOf('day') || current > moment().add(8, 'days').startOf("day")),
         []
-      );
+    );
     const handleSelectTime = (date) => { setSelectTime(date) };
 
     const next = () => { setCurrent(current + 1) };
@@ -136,7 +136,7 @@ const DoctorBooking = () => {
         },
         {
             title: 'Patient Information',
-            content: <PersonalInformation handleChange={handleChange} selectValue={selectValue} setCurrentPatientData= {setCurrentPatientData} patientId={loggedInUser?.id} />
+            content: <PersonalInformation handleChange={handleChange} selectValue={selectValue} setCurrentPatientData={setCurrentPatientData} patientId={loggedInUser?.id} />
         },
         {
             title: 'Payment',
@@ -157,20 +157,7 @@ const DoctorBooking = () => {
         title: item.title,
     }))
 
-    const startAuthFlow = async ({ role }) => {
-        const oauth2Client = new google.auth.OAuth2(
-            process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID 
-        );
 
-        const url = oauth2Client.generateAuthUrl({
-            access_type: 'offline',
-            scope: ['https://www.googleapis.com/auth/calendar'],
-            prompt: 'consent',
-            state: JSON.stringify({ role })
-        });
-        
-        window.location.href = url;
-    };
 
     const handleConfirmSchedule = () => {
         const obj = {};
@@ -216,7 +203,9 @@ const DoctorBooking = () => {
                 <div className='text-end mx-3' >
                     {current < steps.length - 1 && (<Button type="primary"
                         disabled={current === 0 ? (selectTime ? false : true) : IsdDisable || !selectTime}
-                        onClick={() => next()}>Next</Button>)}
+                        onClick={() => next()}>Next</Button>)
+                    }
+
 
                     {current === steps.length - 1 && (<Button type="primary" disabled={IsConfirmDisable} loading={createIsLoading} onClick={handleConfirmSchedule}>Confirm</Button>)}
                     {current > 0 && (<Button style={{ margin: '0 8px', }} onClick={() => prev()} >Previous</Button>)}

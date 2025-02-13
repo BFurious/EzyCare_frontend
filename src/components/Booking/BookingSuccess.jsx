@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Footer from '../Shared/Footer/Footer';
-import { FaBriefcase, FaCalendarCheck, FaRegClock, FaLocationArrow, FaCalendarAlt, FaLink, FaAlignLeft  } from "react-icons/fa";
+import { FaBriefcase, FaCalendarCheck, FaRegClock, FaLocationArrow, FaCalendarAlt, FaLink, FaAlignLeft } from "react-icons/fa";
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Button, Tag, Tooltip } from 'antd';
 import moment from 'moment';
@@ -8,6 +8,7 @@ import { Empty } from 'antd';
 import Header from '../Shared/Header/Header';
 import { useGetSingleAppointmentQuery } from '../../redux/api/appointmentApi';
 import { clickToCopyClipBoard } from '../../utils/copyClipBoard';
+import SetCalendarEvent from './CalendarEvent';
 
 const BookingSuccess = () => {
     const { id } = useParams();
@@ -31,16 +32,18 @@ const BookingSuccess = () => {
                 {
                     data?.id ?
 
-                        <div className=" p-3" style={{ marginTop: '8rem', marginBottom: '5rem', height: '60vh', background: '#f8f9fa', maxWidth: '400px' }}>
+                        <div className=" tracking-container hide-scroolbar p-3" style={{ marginTop: '8rem', marginBottom: '5rem', height: '60vh', background: '#f8f9fa', maxWidth: '400px', overflow: 'auto' }}>
 
-                            <div className='border-bottom my-2'>
-                                <FaCalendarCheck style={{ fontSize: '2.5rem' }} className='text-success' />
-                                <h6 className='py-2'>Meeting is scheduled</h6>
+                            <div className='border-bottom my-2 '>
+                                <div className='mb-4 flex flex-row gap-2 align-center justify-center'>
+                                    <FaCalendarCheck style={{ fontSize: '2.5rem' }} className='text-success' />
+                                    <h6 className='py-2'>Meeting is scheduled</h6>
+                                </div>
                                 <p className='text-secondary border rounded-pill form-text text-success border-success'>Check your Inbox an email with all details!</p>
                             </div>
 
 
-                            <div>
+                            <div className='my-4'>
                                 <Tooltip title="Copy Tracking Id">
                                     <Button>
                                         <h6>Tracking<Tag color="#87d068" className='ms-2 text-uppercase' onClick={() => clickToCopyClipBoard(data?.trackingId)}>{data?.trackingId}</Tag></h6>
@@ -49,9 +52,9 @@ const BookingSuccess = () => {
                             </div>
 
 
-                            <div className='card border-0 p-3 rounded mb-5'>
+                            <div className='card border-0 p-3 rounded mb-3'>
                                 <div className='d-flex gap-3 mb-2 align-items-center'>
-                                    <FaAlignLeft style={{ fontSize: '1rem' }}/>
+                                    <FaAlignLeft style={{ fontSize: '1rem' }} />
                                     <Link to={`/dashboard/appointments/${id}`}><h5 className='text-primary'>View Appointment Details</h5></Link>
                                 </div>
                                 <div className='d-flex gap-3 mb-1'>
@@ -73,8 +76,10 @@ const BookingSuccess = () => {
                                 <div className='d-flex gap-3'>
                                     <div><FaCalendarAlt style={{ fontSize: '1rem' }} /> </div>
                                     <p>{(data.scheduleDate && data.scheduleTime) && moment(data.scheduleDate).format('LL') + ' ' + data.scheduleTime}</p>
+
                                 </div>
                             </div>
+                            <SetCalendarEvent />
                         </div>
                         :
                         <div className='rounded p-3 d-flex flex-column justify-content-center align-items-center' style={{ background: "#f8f9fa", marginTop: '8rem', marginBottom: '5rem' }} >

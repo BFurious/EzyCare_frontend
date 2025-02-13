@@ -436,3 +436,8 @@ button:hover {
     transform: scale(1.05);
     background-position: right center;
 }
+
+.hide-scroolbar{
+    -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
