@@ -7,14 +7,12 @@ const MeetScheduler = () => {
 
     const startAuthFlow = useGoogleLogin({
         onSuccess: async (tokenResponse) => {
-            console.log(tokenResponse);
+            console.log("authorization token: ", tokenResponse);
             try {
-                const response = await axios('http://localhost:5050/meet', {
-                    method: 'POST',
+                const response = await axios.post('http://localhost:5050/meet', tokenResponse, {
                     headers: {
                         'Content-Type': 'application/json'
-                    },
-                    body: tokenResponse
+                    }
                 });
 
                 const data = await response.json();
@@ -29,7 +27,7 @@ const MeetScheduler = () => {
         flow: 'auth-code', // Use authorization code flow
         scope: 'https://www.googleapis.com/auth/calendar',
         state: JSON.stringify({ role: "patient" }), // Pass role as state
-        redirect_uri: "http://localhost:5050/oauth/callback", // Add this line
+        redirect_uri: "https://ezy-care-backend.vercel.app/oauth/callback", // Add this line
     })
 
     return (
