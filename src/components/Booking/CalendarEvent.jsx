@@ -27,7 +27,7 @@ const MeetScheduler = () => {
         flow: 'auth-code', // Use authorization code flow
         scope: 'https://www.googleapis.com/auth/calendar',
         state: JSON.stringify({ role: "patient" }), // Pass role as state
-        redirect_uri: "https://ezy-care-backend.vercel.app/oauth/callback", // Add this line
+        redirect_uri: process.env.REACT_APP_GOOGLE_CALENDAR_REDIRECT_URL // Add this line
     })
 
     return (
@@ -45,7 +45,7 @@ const MeetScheduler = () => {
 
 // Wrap in GoogleOAuthProvider at root level
 const SetCalendarEvent = () => (
-    <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || "381501017707-l2i1r1p1vfue4rg782dl8apopdet9bvv.apps.googleusercontent.com"} >
+    <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID} >
         <MeetScheduler />
     </GoogleOAuthProvider>
 );
